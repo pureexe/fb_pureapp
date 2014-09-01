@@ -48,6 +48,9 @@
         }                
         // Global Variable
         var hash_name=[];
+		var tab_name=[];
+		var threadlist;
+		var cnt_thread=0;
         // Facebook Connector         
         window.fbAsyncInit = function() {
             FB.init({
@@ -64,11 +67,19 @@
 //						console.log(JSON.stringify(re));
  //                       $('#chat_table tr:eq(1)').remove();
                      
+					 
+					 var threadexplore = function() {
+						FB.api('/'.threadlist[cnt_thread].'?fields=to',function(re) {
+							console.log(JSON.stringify(re));
+						})
+					 }
+					 
                     var re = FB.api({
 						method: 'fql.query',
-						query: 'SELECT viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
+						query: 'SELECT thread_id,viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function (re){
-										console.log(JSON.stringify(re));
+						threadlist=re;
+						threadexplore();
 					});
                 } else{
 					console.log("Not logged in");
