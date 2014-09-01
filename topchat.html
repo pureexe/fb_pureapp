@@ -68,8 +68,21 @@
  //                       $('#chat_table tr:eq(1)').remove();
                      
 					 var mergetable = function(){
-						console.log("All load = "+tab_name.length);
-						console.log(JSON.stringify(tab_name));
+						var mergetxt="";
+						var cnt=1;
+						tab_name.forEach(function (a){
+							if(a.length == 0){
+								mergetxt+="<tr><td>"+cnt+"</td><td>delete pic</td><td>delete account</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
+							}
+							else if(a.length==1){
+								mergetxt+="<tr><td>"+cnt+"</td><td><img src='https://graph.facebook.com/"+a.id+"/picture'></img></td><td>"+a.name+"</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
+							}else {
+								mergetxt+="<tr><td>"+cnt+"</td><td>group picture</td><td>group chat</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
+							}
+							cnt++;
+						});
+						 $('#chat_table tr:eq(1)').remove();
+						 $('#chat_table').append(mergetxt);
 					 }
 					 
 					 var threadexplore = function() {
