@@ -75,7 +75,7 @@
 								mergetxt+="<tr><td>"+cnt+"</td><td>delete pic</td><td>delete account</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
 							}
 							else if(a.length==1){
-								mergetxt+="<tr><td>"+cnt+"</td><td><img src='https://graph.facebook.com/"+a.id+"/picture'></img></td><td>"+a.name+"</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
+								mergetxt+="<tr><td>"+cnt+"</td><td><img src='https://graph.facebook.com/"+a[0].id+"/picture'></img></td><td>"+a[0].name+"</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
 							}else {
 								mergetxt+="<tr><td>"+cnt+"</td><td>group picture</td><td>group chat</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
 							}
