@@ -7,7 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+	var gotop = function(){
+        	$(function() {
+            		$('body').scrollTop(0);
+        	});
+    	}
+	</script>
+
     <style>
         body { padding-top: 70px;
                 padding-bottom: 70px;
@@ -15,51 +23,6 @@
     </style>
 </head>
 <body>
-<div id="fb-root"></div>
-    <script>
-        /// Utility Function
-        $._GET = function(name, url) {
-            if (!url) {
-                url = window.location.href;
-            }
-            var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
-            if (!results) { 
-                return 0; 
-            }
-            return results[1] || 0;
-        }
-                window.fbAsyncInit = function() {
-            FB.init({
-                appId   : '351070565012663', // pure's app id
-                xfbml      : true,
-                  version    : 'v2.0'
-            });
-           FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-					
-                } else {
-	/*
-					FB.login(function(){
-					 window.location.reload();
-					}, {scope: 'publish_actions,publish_stream,read_mailbox'});
-					*/
-				}
-            })
-        };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    var gotop = function(){
-        $(function() {
-            $('body').scrollTop(0);
-        });
-    }
-</script>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
