@@ -161,7 +161,10 @@
                             }
                         }
                     FB.api('/me/posts?fields=id',getpostcallback);
-                }
+                } else{
+					console.log("Not logged in");
+					$("#app-display").hide();
+				}
             })
         };
 
@@ -224,7 +227,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container">
+<div class="container" id="app-display">
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
