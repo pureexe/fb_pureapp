@@ -11,7 +11,7 @@
     <script>
 	var gotop = function(){
         	$(function() {
-            		$('body').scrollTop(0);
+			$('body,html').stop(true,true).animate({scrollTop: 0}, 1000);
         	});
     	}
 	</script>
