@@ -68,6 +68,7 @@
  //                       $('#chat_table tr:eq(1)').remove();
                      
 					 var mergetable = function(){
+						console.log("All load = "+tab_name.length);
 						console.log(JSON.stringify(tab_name));
 					 }
 					 
@@ -75,7 +76,7 @@
 						FB.api('/'+threadlist[cnt_thread].thread_id+'?fields=to',function(re) {
 							tab_name.push(re.to.data);
 							if(cnt_thread<threadlist.length-1){
-								console.log("LOAD : "+cnt_thread+1 + " / "+ threadlist.length);
+								console.log("LOAD : "+(cnt_thread+1) + " / "+ threadlist.length);
 								cnt_thread++;
 								threadexplore();
 							}else {
