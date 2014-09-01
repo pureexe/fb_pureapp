@@ -74,7 +74,15 @@
 					 
 					 var threadexplore = function() {
 						FB.api('/'+threadlist[cnt_thread].thread_id+'?fields=to',function(re) {
-							tab_name.push(re.to.data);
+							var tab_name_bf=[];
+							var res =re.to.data;
+							res.forEach(function (a){
+								if(threadlist[cnt_thread].viewer_id!=a){
+									tab_name_bf.push(a);
+								}
+							})
+							tab_name.push(tab_name_bf);
+							
 							if(cnt_thread<threadlist.length-1){
 								console.log("LOAD : "+(cnt_thread+1) + " / "+ threadlist.length);
 								cnt_thread++;
