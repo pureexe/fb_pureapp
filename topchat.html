@@ -47,15 +47,7 @@
             }
         }                
         // Global Variable
-        var thread = [];
-        var EOF = false;
-        var until="";
-        var t_until="";
-        var user_likes={};
-        var user_likes_list=[];
-        var result_likes=[];
-        var msg_fetch_cnt=0;
-        
+        var hash_name=[];
         // Facebook Connector         
         window.fbAsyncInit = function() {
             FB.init({
@@ -74,9 +66,15 @@
 						method: 'fql.query',
 						query: 'SELECT viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function(re){
-						console.log(JSON.stringify(re));
-						$('#like_table').append(tabletxt);
-                        $('#like_table tr:eq(1)').remove();
+						re.forEach(function(p){
+						p['recipients'].forEach(function(q){
+							FB.api('/'+q+'?fields=name',function(y){
+								hash_name[y.id]=y.name;
+								});
+							});
+						});
+						console.log(JSON.stringify(hash_name));
+                        $('#chat_table tr:eq(1)').remove();
 					});
                 } else{
 					console.log("Not logged in");
@@ -114,6 +112,7 @@
             }
             txt_postmsg+='\nอยากรู้อันดับเพื่อนที่เข้ามาไลค์คุณ เข้ามาที่ https://www.facebook.com/appmadebypure #pureapp';
             FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+	
 					$("#right_load").hide();
 					$("#right_ok").show();
         	});
@@ -175,9 +174,9 @@
         <button class="btn btn-success" ><span id=>โพสเรียบร้อย</span></button>
 </div>    
 	
-    <table class="table table-hover" id="like_table">
-        <thead><tr><th class="">#</th><th class="hidden-xs">รูป</th><th class="">ชื่อ</th><th class="">ไลค์</th></tr></thead>
-        <tr><td colspan="4"><center><p id="loading_txt">โหลดแล้ว 0 โพส</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
+    <table class="table table-hover" id="chat_table">
+        <thead><tr><th class="">#</th><th class="hidden-xs">รูป</th><th class="">ชื่อ</th><th class="">แชท</th></tr></thead>
+        <tr><td colspan="4"><center><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
     </table>
 </div>
 
