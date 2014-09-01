@@ -55,6 +55,7 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
+                	console.log('sign in with FB complete');
                         var thread_access = function(){
                             thread.forEach(function(p_thread){
                                 var likes =[];
