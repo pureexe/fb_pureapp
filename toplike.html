@@ -58,7 +58,7 @@
 					$("#app-display").show();
 					$("#login-display").hide();
 					$("#right_post").hide();
-
+					$("#right_ok").hide();
                         var thread_access = function(){
                             thread.forEach(function(p_thread){
                                 var likes =[];
@@ -231,7 +231,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" id="login-display" >
+<div class="container" id="login-display" style="display: none;">
 <div class="jumbotron">
   <h1>อีกขั้นเดียว!</h1>
   <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยพวกเราจะใช้สิทธิต่างๆดังนี้
@@ -247,7 +247,7 @@
 </div>
 </div>
 
-<div class="container" id="app-display">
+<div class="container" id="app-display" style="display: none;">
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -266,13 +266,13 @@
         </ul>
     </div>
 
- <div style="float:right;" id="right_post">
+ <div style="float:right;" id="right_post" style="display: none;">
         <button onclick="postfacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
 </div>
- <div style="float:right;" id="right_load">
+ <div style="float:right;" id="right_load" style="display: none;">
         <button class="btn btn-warning" ><span id=>กำลังโหลด</span></button>
 </div>
- <div style="float:right;" id="right_load">
+ <div style="float:right;" id="right_ok" style="display: none;">
         <button class="btn btn-success" ><span id=>โพสเรียบร้อย</span></button>
 </div>    
 	
