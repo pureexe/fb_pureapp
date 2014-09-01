@@ -69,7 +69,7 @@
 						re.forEach(function(p){
 						p['recipients'].forEach(function(q){
 							FB.api('/'+q+'?fields=name',function(y){
-								hash_name[y.id]=y.name;
+									hash_name.push(y.name);
 								});
 							});
 						});
