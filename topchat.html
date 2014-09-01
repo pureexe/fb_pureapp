@@ -70,7 +70,7 @@
 					 
 					 var threadexplore = function() {
 						FB.api('/'+threadlist[cnt_thread].thread_id+'?fields=to',function(re) {
-							console.log(JSON.stringify(re.to));
+							console.log(JSON.stringify(re.to.data));
 							tab_name.push(re.to);
 						})
 					 }
