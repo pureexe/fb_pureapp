@@ -55,7 +55,8 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                	console.log('sign in with FB complete');
+					$("#app-display").show();
+					$("#login-display").hide();
                         var thread_access = function(){
                             thread.forEach(function(p_thread){
                                 var likes =[];
@@ -233,11 +234,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" id="login-display" style="visibility:hide;">
+<div class="container" id="login-display" >
 	<button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">Login to facebook</span></button>
 </div>
 
-<div class="container" id="app-display" style="visibility:hide;">
+<div class="container" id="app-display">
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
