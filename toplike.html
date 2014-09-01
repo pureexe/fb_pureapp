@@ -58,7 +58,7 @@
 					$("#app-display").show();
 					$("#login-display").hide();
 					$("#right_post").hide();
-					$("#right_ok").hide();
+
                         var thread_access = function(){
                             thread.forEach(function(p_thread){
                                 var likes =[];
@@ -184,8 +184,7 @@
         });
     }
     var postfacebook = function() {
-			$("right_post").hide();
-			$("right_load").show();
+		$("#right_post").hide();
             var txt_postmsglength = 0;
             if(result_likes.length>=5){
                 txt_postmsglength= 5;
@@ -204,8 +203,7 @@
                     $("#postface_txt").html("โพสสำเร็จ");
 				    //console.log('post to facebook sussessfully');
         		});
-				$("right_load").hide();
-				$("right_ok").show();
+
     }
 	var logintofacebook = function(){
 		FB.login(function(){
@@ -270,14 +268,12 @@
     </div>
 
  <div style="float:right;" id="right_post">
-        <button onclick="postfacebook()" class="btn btn-warning" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
+        <button onclick="postfacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
 </div>
  <div style="float:right;" id="right_load">
-        <button class="btn btn-primary" ><span id=>กำลังโหลด</span></button>
+        <button class="btn btn-warning" ><span id=>กำลังโหลด</span></button>
 </div>
- <div style="float:right;" id="right_ok">
-        <button class="btn btn-success" ><span id=>โพสเรียบร้อย</span></button>
-</div>
+
     
     <table class="table table-hover" id="like_table">
         <thead><tr><th class="">#</th><th class="hidden-xs">รูป</th><th class="">ชื่อ</th><th class="">ไลค์</th></tr></thead>
