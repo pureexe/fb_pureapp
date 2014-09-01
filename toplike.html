@@ -164,6 +164,7 @@
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
+					$("#login-display").show();
 				}
             })
         };
@@ -205,6 +206,11 @@
         		});
         }
     }
+	var logintofacebook = function(){
+		FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream,read_mailbox'})
+	}
 
 </script>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -227,7 +233,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" id="app-display">
+<div class="container" id="login-display" style="visibility:none;">
+	<button onclick="postfacebook()" class="btn btn-warning" id="postfacebtn"><span id="postface_txt">กำลังโหลด...</span></button>
+</div>
+
+<div class="container" id="app-display" style="visibility:none;">
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">

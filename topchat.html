@@ -55,6 +55,7 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
+					$("#app-display").show();
                 	console.log('sign in with FB complete');
                         var thread_access = function(){
                             thread.forEach(function(p_thread){
@@ -227,7 +228,7 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" id="app-display">
+<div class="container" id="app-display" >
 
     <div class="btn-group">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
