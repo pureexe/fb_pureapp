@@ -110,7 +110,6 @@
                                             $('#like_table tr:eq(1)').remove();
                                             $('#postface_txt').html("โพสบนเฟสบุ๊ค");
                                             $('#postfacebtn').removeClass("btn-warning");
-											console.log("HTC");
                                             $('#postfacebtn').addClass("btn-primary");
                                             //console.log(JSON.stringify(result_likes));
                                         }
@@ -206,7 +205,9 @@
                     $("#postface_txt").html("โพสสำเร็จ");
 				    //console.log('post to facebook sussessfully');
         		});
-        }
+        }else {
+			console.log("Wait processor");
+		}
     }
 	var logintofacebook = function(){
 		FB.login(function(){
