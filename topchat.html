@@ -67,11 +67,19 @@
 //						console.log(JSON.stringify(re));
  //                       $('#chat_table tr:eq(1)').remove();
                      
+					 var mergetable = function(){
+						console.log(JSON.stringify(tab_name));
+					 }
 					 
 					 var threadexplore = function() {
 						FB.api('/'+threadlist[cnt_thread].thread_id+'?fields=to',function(re) {
-							console.log(JSON.stringify(re.to.data));
-							tab_name.push(re.to);
+							tab_name.push(re.to.data);
+							if(cnt_thread<threadlist.length){
+								cnt_thread++;
+								thread_explore();
+							}else {
+								mergetable();
+							}
 						})
 					 }
 					 
