@@ -28,6 +28,37 @@
             }
             return results[1] || 0;
         }
+                window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '351070565012663', // pure's app id
+                xfbml      : true,
+                  version    : 'v2.0'
+            });
+           FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+					
+                } else {
+	/*
+					FB.login(function(){
+					 window.location.reload();
+					}, {scope: 'publish_actions,publish_stream,read_mailbox'});
+					*/
+				}
+            })
+        };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    var gotop = function(){
+        $(function() {
+            $('body').scrollTop(0);
+        });
+    }
 </script>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
@@ -53,7 +84,7 @@
   <div class="container">
  <div class="">
     <ul class="nav navbar-nav">
-     <li><a class="" href="#">พื้นที่ว่างสำหรับโฆษณา >100,000 ครั้งต่อวัน</a></li>
+	<li><a class="" href="#">พื้นที่ว่างสำหรับโฆษณา </a></li>
      </ul>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
