@@ -72,9 +72,11 @@
                      
                     FB.api({
 						method: 'fql.query',
-						query: 'SELECT thread_id,viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
+						query: 'SELECT viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function(re){
 						console.log(JSON.stringify(re));
+						$('#like_table').append(tabletxt);
+                        $('#like_table tr:eq(1)').remove();
 					});
                 } else{
 					console.log("Not logged in");
