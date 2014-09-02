@@ -125,8 +125,8 @@
 						method: 'fql.query',
 						query: 'SELECT thread_id,viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function (re){
-						threadlist=re;
-						if(threadlist[cnt_thread].thread_id){							
+						if(!re.error){							
+							threadlist=re;
 							threadexplore();
 						} else {
 							$("#loading_txt").html("เฟสบุ๊คปฏิเสธการใช้งานกรุณารอ 10 นาที\n"+JSON.stringify(re.error));
@@ -204,7 +204,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">ใครคุยกับฉันมากสุด</a>
+      <a class="navbar-brand" href="http://www.pureapp.in.th">ใครคุยกับฉันมากสุด</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
