@@ -125,7 +125,8 @@
 						method: 'fql.query',
 						query: 'SELECT thread_id,viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function (re){
-						if(!re.error){							
+						if(!re.error){
+							console.log(JSON.stringrify(re));
 							threadlist=re;
 							threadexplore();
 						} else {
