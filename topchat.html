@@ -67,6 +67,7 @@
 					$("#right_ok").hide();
 					$("#right_load").show();
 					$("#right_post").hide();
+					$("#right_err").hide();
 //						console.log(JSON.stringify(re));
  //                       $('#chat_table tr:eq(1)').remove();
                      
@@ -189,8 +190,8 @@
 					if(!res.error_code){
 						$("#right_ok").show();
 						}else {
-							$("right_err").show();
-							$("err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
+							$("#right_err").show();
+							$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
 						}
         	});
 
