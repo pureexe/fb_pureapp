@@ -30,6 +30,7 @@
         }
         
         $._DateDiff = function datediff(strDate1, strDat2) {
+		    console.log("datediff");
             if (!strDat2) {
                 return (new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24);
             } else {
@@ -152,7 +153,6 @@
                                 
 								}else {
                                     EOF = true;
-                                console.log("PAUSE");
                                 }
                             });
                             $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
