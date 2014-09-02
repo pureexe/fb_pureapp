@@ -55,7 +55,7 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-					console.log("Login..");
+					
 					$("#app-display").show();
 					$("#login-display").hide();
 					$("#right_post").hide();
@@ -121,6 +121,7 @@
                             })
                         }
                         var getpostcallback = function (msg){
+							console.log("getpostcallback -> "+JSON.stringify(msg));
                             var day = 30;
                             if($._GET("day")){
                                 day=$._GET("day");
