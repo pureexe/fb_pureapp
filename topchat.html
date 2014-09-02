@@ -186,7 +186,12 @@
             FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
 				
 					$("#right_load").hide();
-					$("#right_ok").show();
+					if(!res.error_code){
+						$("#right_ok").show();
+						}else {
+							$("right_err").show();
+							$("err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
+						}
         	});
 
     }
@@ -245,6 +250,10 @@
  <div  id="right_ok" style="display: none;">
         <button class="btn btn-success" ><span>โพสเรียบร้อย</span></button>
 </div>    
+ <div style="float:right;" id="right_err" style="display: none;">
+        <button class="btn btn-danger" ><span>ผิดพลาด</span><span id="err_msg"></span></button>
+</div>    
+
 	
     <table class="table table-hover" id="chat_table">
 	<!-- class="hidden-xs" -->
