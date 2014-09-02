@@ -31,9 +31,17 @@
         
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
-                return (new Date().getTime()/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24);
+                if(isNaN(new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24)){
+					return Date().getTime()/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
+				} else {
+					return new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24);
+				}
             } else {
-                return (Date.parse(strDate2.replace(/\-/ig, '/').split('.')[0])/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24);
+                if(isNaN((Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24))){
+					return (Date.parse(strDate2.replace(/\-/ig, '/').split('.')[0])/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
+				}else {
+					return (Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24);
+				}
             }
         }                
         // Global Variable
@@ -148,10 +156,9 @@
                            //console.log("getpostcallback -> "+JSON.stringify(msg));
                             msg.data.forEach(function(p){
                                 if($._DateDiff(p.created_time)<=day){
-								console.log("Y");
 								thread.push(p); 
 								}else {
-									console.log("N");
+
                                     EOF = true;
                                 }
                             });
