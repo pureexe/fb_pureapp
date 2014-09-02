@@ -30,7 +30,7 @@
 	var share_toplike = function(){
 		FB.ui({
 			method: 'share',
-			href: 'http://pureexe.github.io/toplike.html',
+			href: 'http://www.pureapp.in.th/toplike',
 			},
 			function(response) {
 				if (response && !response.error_code) {
@@ -127,7 +127,7 @@
 		<div class="caption">
         <h3>ใครกดไลค์ฉันมากสุด</h3>
         <p>ใครกดไลค์คุณมากสุด เขาคนที่แอบส่องเฟสคุณอยู่ เพื่อนสนิท หรือแฟน? อยากรู้ลองเล่นเลย</p>
-        <p><a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-primary" role="button">เล่น</a> <a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-default" role="button">แบ่งปัน</a></p>
+        <p><a href="toplike" class="btn btn-primary" role="button">เล่น</a> <a href="javascript:share_toplike();" class="btn btn-default" role="button">แบ่งปัน</a></p>
       </div>
     </div>
   </div>
