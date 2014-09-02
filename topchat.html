@@ -78,44 +78,56 @@
 							else if(a.length==1){
 								mergetxt+="<tr><td>"+cnt+"</td><td><img src='https://graph.facebook.com/"+a[0].id+"/picture'></img></td><td>"+a[0].name+"</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
 							}else {
-								mergetxt+="<tr><td>"+cnt+"</td><td><img alt='' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAI3AAACNwBn+hfPAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAUQSURBVHic7ZptaFZlGMd/l5s5TDdLHUqWa2WUgi7d0KAXCcoiEbYgCBYEFkS0L0GU0ceCErL6UvjFiAWtl32xF5SklQRuvcwwFy3XMgxdkzmXUW5uXn247gcP63m2c9/n7DnCnj9cPA8818v//M997vs+1/2IqjKbMSdrAlmjJEDWBLJGSYCsCWSNkgBZE8gaJQGyJpA1ypMmEJGFQB1wK7AI+AE4rKonkuaeVGclUA+sB4aB74BuVf0rUWJVDTKgDHgBGAM0j+0HVoTmj9S51uXKV2PMcSgLzh9IajnQVYBU1M4CjQkuvhEYiVGnC1heTAE+i0EqZ+eAmoAa17vYuHX2FUUA4DEPUjk7AIhHDQG+CqjzRDEE+DmAmAJ1HjXWBtbo9b0er2VQRCqBm3xiIqj38N0UWGOViFT5BPjuA9ZjwzMEDR6+GwJrCMYxNnz3AWOe/lEM5r6ISB1wJzYqaoAfge+Bz9X2DzuB+7El0BejXt6ez/98YBz/Z/MjbLQtAN4ELhbw+xt4CruTtcDvnnXGgfkzPQke8SR1EKgAlgH9MWM+cYLVAH941DpSjFWgyVOAdS5ur2fc0wHLbtOMC+BItcYkdNT5N3tevAL/AquAK4CBGP6tQdcSKEAl0B6D1A7n/2mAAAo84+LfncavHagsmgARIZoL3J1R4G1gqfOLcwfzWZuLfwh7A5z8+wDQnOQaxBUIhohUYJNVPVAN9AGHgQFVvSAiy4BTgel7VfVmEZkDzANWY5ukEex1+Liqnk/C32sf4IhscyQ2YJuOq6fwX4dtncewZ9kXOeFagNcL1DgDdGP7iE5gr6pejF3BY7jXYkuazxB+0sV+4xmXs50u/n2PmINAbapzALAdv1fTnL3n4ncFCrDNxZ/wjDsHbE9FAGBLIHnFhnAF9pic9Izd5+qvSVB/SyIBgKoA9SfbGy7XVo+YYeAaYC7hj4867lVJBNiT8OIV2/dvcfkeBP6cxr8bWOv8X0qh/p4gAbBlp1DD08fGgVcjeZcAbwE/ARPO57y70zuAuc6vgrCu0GQbA+Z57wNEZCO2rIRiFHgHeEVV+yN5VwA3YG98C4DrgGPABWc9qno24n8H8DxwXwIum1S1K+8vU4yAFsJVPwM0RO7ks1gjdbrhn7M+bOl7OMLncS6NGF9rCXkEQp//QS69ATZgQz3JEP4Y1/IGHiGsH1FwHphKgLaAQv8Aq138c4Fk89kQcK/L+2hAfFuxBHjZxd5N4a5PqJ0Gql3+Q5ejAMPAVcBC4HjKF5+zdsdtc1oCpHk6vEtVh4EXgZUp5o2iSUQaVfVL4Is0EqYpQIf7fCDFnPmQy98xpVdMpClAj4gswtb4mUTugKUnjWRpCXDSDf/QAw0frHFNmKNpJJtKgA5sDY+D3E7vlmR0YqEcuDFSczr8hnWkCybLC1XdDewWkWrgLmebsbbU5OOxienypYxyVZ0QKXhK9ys2SbYCX2uh/T4xCKvqIPChM0RkMXZAWoPN9jXYEpgFDmA9h1NYg7QP6FTV03ETeN8xVR3CNiKHfGPThqrekzTHrP+XWEmArAlkjZIAKefbD7wGfIu9CqeNXux/gb+klTDx0VjBxCJXAhuB253dhrXAfDCC/fO0E/hAVbtTJckMCvC/QiJl2OnSUqwxuth9LsHaZsNY42MIa6kdA/qn2sSkwqtYAlyuKE2CWRPIGiUBsiaQNUoCZE0ga5QEyJpA1pj1AvwHhU/tLyyBgDAAAAAASUVORK5CYII=' /></td><td>group chat</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
+								var nameofgroup="";
+								a.forEach(function(q){
+									nameofgroup += q.name+","
+								});
+								nameofgroup = nameofgroup.substring(0, nameofgroup.length - 1);
+								mergetxt+="<tr><td>"+cnt+"</td><td><img alt='' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAI3AAACNwBn+hfPAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAUQSURBVHic7ZptaFZlGMd/l5s5TDdLHUqWa2WUgi7d0KAXCcoiEbYgCBYEFkS0L0GU0ceCErL6UvjFiAWtl32xF5SklQRuvcwwFy3XMgxdkzmXUW5uXn247gcP63m2c9/n7DnCnj9cPA8818v//M997vs+1/2IqjKbMSdrAlmjJEDWBLJGSYCsCWSNkgBZE8gaJQGyJpA1ypMmEJGFQB1wK7AI+AE4rKonkuaeVGclUA+sB4aB74BuVf0rUWJVDTKgDHgBGAM0j+0HVoTmj9S51uXKV2PMcSgLzh9IajnQVYBU1M4CjQkuvhEYiVGnC1heTAE+i0EqZ+eAmoAa17vYuHX2FUUA4DEPUjk7AIhHDQG+CqjzRDEE+DmAmAJ1HjXWBtbo9b0er2VQRCqBm3xiIqj38N0UWGOViFT5BPjuA9ZjwzMEDR6+GwJrCMYxNnz3AWOe/lEM5r6ISB1wJzYqaoAfge+Bz9X2DzuB+7El0BejXt6ez/98YBz/Z/MjbLQtAN4ELhbw+xt4CruTtcDvnnXGgfkzPQke8SR1EKgAlgH9MWM+cYLVAH941DpSjFWgyVOAdS5ur2fc0wHLbtOMC+BItcYkdNT5N3tevAL/AquAK4CBGP6tQdcSKEAl0B6D1A7n/2mAAAo84+LfncavHagsmgARIZoL3J1R4G1gqfOLcwfzWZuLfwh7A5z8+wDQnOQaxBUIhohUYJNVPVAN9AGHgQFVvSAiy4BTgel7VfVmEZkDzANWY5ukEex1+Liqnk/C32sf4IhscyQ2YJuOq6fwX4dtncewZ9kXOeFagNcL1DgDdGP7iE5gr6pejF3BY7jXYkuazxB+0sV+4xmXs50u/n2PmINAbapzALAdv1fTnL3n4ncFCrDNxZ/wjDsHbE9FAGBLIHnFhnAF9pic9Izd5+qvSVB/SyIBgKoA9SfbGy7XVo+YYeAaYC7hj4867lVJBNiT8OIV2/dvcfkeBP6cxr8bWOv8X0qh/p4gAbBlp1DD08fGgVcjeZcAbwE/ARPO57y70zuAuc6vgrCu0GQbA+Z57wNEZCO2rIRiFHgHeEVV+yN5VwA3YG98C4DrgGPABWc9qno24n8H8DxwXwIum1S1K+8vU4yAFsJVPwM0RO7ks1gjdbrhn7M+bOl7OMLncS6NGF9rCXkEQp//QS69ATZgQz3JEP4Y1/IGHiGsH1FwHphKgLaAQv8Aq138c4Fk89kQcK/L+2hAfFuxBHjZxd5N4a5PqJ0Gql3+Q5ejAMPAVcBC4HjKF5+zdsdtc1oCpHk6vEtVh4EXgZUp5o2iSUQaVfVL4Is0EqYpQIf7fCDFnPmQy98xpVdMpClAj4gswtb4mUTugKUnjWRpCXDSDf/QAw0frHFNmKNpJJtKgA5sDY+D3E7vlmR0YqEcuDFSczr8hnWkCybLC1XdDewWkWrgLmebsbbU5OOxienypYxyVZ0QKXhK9ys2SbYCX2uh/T4xCKvqIPChM0RkMXZAWoPN9jXYEpgFDmA9h1NYg7QP6FTV03ETeN8xVR3CNiKHfGPThqrekzTHrP+XWEmArAlkjZIAKefbD7wGfIu9CqeNXux/gb+klTDx0VjBxCJXAhuB253dhrXAfDCC/fO0E/hAVbtTJckMCvC/QiJl2OnSUqwxuth9LsHaZsNY42MIa6kdA/qn2sSkwqtYAlyuKE2CWRPIGiUBsiaQNUoCZE0ga5QEyJpA1pj1AvwHhU/tLyyBgDAAAAAASUVORK5CYII=' /></td><td>"+nameofgroup+"</td><td>"+threadlist[cnt-1].message_count+"</td></tr>";
 							}
 							cnt++;
 						});
 						 $('#chat_table tr:eq(1)').remove();
 						 $('#chat_table').append(mergetxt);
-						 $("#right_load").show();
-						 $("#right_post").hide();
+						 $("#right_load").hide;
+						 $("#right_post").show();
 
 					 }
 					 
 					 var threadexplore = function() {
 						FB.api('/'+threadlist[cnt_thread].thread_id+'?fields=to',function(re) {
-							var tab_name_bf=[];
-							var res =re.to.data;
-							res.forEach(function (a){
-								if(threadlist[cnt_thread].viewer_id!=a.id){
-									tab_name_bf.push(a);
+							if(!re.error){
+								var tab_name_bf=[];
+								var res =re.to.data;
+								res.forEach(function (a){
+									if(threadlist[cnt_thread].viewer_id!=a.id){
+										tab_name_bf.push(a);
+									}
+								})
+								tab_name.push(tab_name_bf);
+								if(cnt_thread<threadlist.length-1){
+									console.log("LOAD : "+(cnt_thread+1) + " / "+ threadlist.length);
+									$("#loading_txt").html("โหลดแล้ว "+msg_fetch_cnt+" / "+thread.length+" คน");
+									cnt_thread++;
+									threadexplore();
+								}else {
+									mergetable();
 								}
 							})
-							tab_name.push(tab_name_bf);
-							
-							if(cnt_thread<threadlist.length-1){
-								console.log("LOAD : "+(cnt_thread+1) + " / "+ threadlist.length);
-								cnt_thread++;
-								threadexplore();
-							}else {
-								mergetable();
+							else {
+								$("#loading_txt").html("เฟสบุ๊คปฏิเสธการใช้งานกรุณารอ 10 นาที");
 							}
-						})
 					 }
 					 
                     var re = FB.api({
 						method: 'fql.query',
 						query: 'SELECT thread_id,viewer_id,recipients,message_count FROM thread WHERE folder_id = 0 ORDER BY message_count DESC'
 					},function (re){
+						if(!re.error){
 						threadlist=re;
 						threadexplore();
+						$("#loading_txt").html("เฟสบุ๊คปฏิเสธการใช้งานกรุณารอ 10 นาที");
+						}
 					});
                 } else{
 					console.log("Not logged in");
@@ -141,19 +153,32 @@
 		$("#right_post").hide();
 		$("#right_load").show();
             var txt_postmsglength = 0;
-            if(result_likes.length>=5){
-                txt_postmsglength= 5;
+            if(threadlist.length>=5){
+                tthreadlistlength= 5;
             } else {
-                txt_postmsglength= result_likes.length;
+                threadlistlength= result_likes.length;
             }
             var i;
-            var txt_postmsg = 'ใน '+time_ago+'ที่ผ่านมาฉันโพส '+thread.length+' โพส\nเพื่อนที่เข้ามาไลค์มากที่สุดดังนี้';;
-            for(i=0;i<txt_postmsglength;i++){
-                txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+' ไลค์ '+result_likes[i].count+' ครั้ง ';
+            var txt_postmsg = 'เพื่อนที่ฉันคุยด้วยมากที่สุด';
+            for(i=0;i<threadlistlength;i++){
+                txt_postmsg+='\nอันดับ '+(i+1)+ "ได้แก่ ";
+				if(tab_name[i].length==0){
+					txt_postmsg += "บัญชีถูกลบ"
+				}else if(tab_name[i].length==1){
+					txt_postmsg += tab_name[i][0].name;
+				}else {
+					var nameofgroup="";
+								a.forEach(function(q){
+									nameofgroup += q.name+","
+								});
+								nameofgroup = nameofgroup.substring(0, nameofgroup.length - 1);
+					txt_postmsg += nameofgroup;
+				}
+				txt_postmsg += " -> "+threadlist[i].message_count+" แชท"
             }
-            txt_postmsg+='\nอยากรู้อันดับเพื่อนที่เข้ามาไลค์คุณ เข้ามาที่ https://www.facebook.com/appmadebypure #pureapp';
+            txt_postmsg+='\nสามารถดูเพิ่มเติมได้อีกถึง 50 อันดับ \nเข้ามาที่ pureapp.in.th/topchat #pureapp';
             FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
-	
+				
 					$("#right_load").hide();
 					$("#right_ok").show();
         	});
@@ -217,7 +242,7 @@
 	
     <table class="table table-hover" id="chat_table">
         <thead><tr><th class="">#</th><th class="hidden-xs">รูป</th><th class="">ชื่อ</th><th class="">แชท</th></tr></thead>
-        <tr><td colspan="4"><center><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
+		<tr><td colspan="4"><center><p id="loading_txt">โหลดแล้ว 0 / 50 คน</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
     </table>
 </div>
 
