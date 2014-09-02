@@ -31,9 +31,9 @@
         
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
-                return (new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24);
+                return (new Date().getTime()/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24);
             } else {
-                return (Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24);
+                return (Date.parse(strDate2.replace(/\-/ig, '/').split('.')[0])/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24);
             }
         }                
         // Global Variable
