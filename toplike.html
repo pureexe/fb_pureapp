@@ -140,7 +140,7 @@
 								time_ago = " 6 เดือน";
 							} else if(day == 365){
                                 $("#fetchtimedisplay").html("เวลา 1 ปี");
-								time_ago = " 1 ปีก";
+								time_ago = " 1 ปี";
 							}else {
 							$("#fetchtimedisplay").html("เวลา "+day+" วัน");
 							    time_ago = day+" วัน";
@@ -149,9 +149,10 @@
                             msg.data.forEach(function(p){
                                 if($._DateDiff(p.created_time)<=day){
                                     thread.push(p); 
-                                }else {
+                                
+								}else {
                                     EOF = true;
-                                //console.log("PAUSE");
+                                console.log("PAUSE");
                                 }
                             });
                             $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
