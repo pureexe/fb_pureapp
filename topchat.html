@@ -118,6 +118,7 @@
 								$("#loading_txt").html("เฟสบุ๊คปฏิเสธการใช้งานกรุณารอ 10 นาที");
 							}
 					 })
+				}
 					 
                     var re = FB.api({
 						method: 'fql.query',
@@ -234,10 +235,10 @@
         <button onclick="postfacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
 </div>
  <div  id="right_load" style="display: none;">
-        <button class="btn btn-warning" ><span id=>กำลังโหลด</span></button>
+        <button class="btn btn-warning" ><span>กำลังโหลด</span></button>
 </div>
  <div  id="right_ok" style="display: none;">
-        <button class="btn btn-success" ><span id=>โพสเรียบร้อย</span></button>
+        <button class="btn btn-success" ><span>โพสเรียบร้อย</span></button>
 </div>    
 	
     <table class="table table-hover" id="chat_table">
