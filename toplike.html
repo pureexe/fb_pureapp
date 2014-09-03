@@ -39,20 +39,15 @@
             }
             return results[1] || 0;
         }
-        
+        function dateFromString(str) {
+			var a = $.map(str.split(/[^0-9]/), function(s) { return parseInt(s, 10) });
+			return new Date(a[0], a[1]-1 || 0, a[2] || 1, a[3] || 0, a[4] || 0, a[5] || 0, a[6] || 0);
+			}
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
-                if(isNaN(new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24)){
-					return (new Date().getTime()/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
-				} else {
-					return (new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24);
-				}
+                	return (new Date().getTime()/1000-dateFromString(strDate1)/1000)/(60*60*24);
             } else {
-                if(isNaN((Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24))){
-					return (Date.parse(strDate2.replace(/\-/ig, '/').split('.')[0])/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
-				}else {
-					return (Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24);
-				}
+					return (dateFromString(strDate2)/1000-dateFromString(strDate1)/1000)/(60*60*24);
             }
         }                
         // Global Variable
@@ -72,7 +67,127 @@
                 xfbml      : true,
                   version    : 'v2.0'
             });
-   
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+					
+					$("#app-display").show();
+					$("#login-display").hide();
+					$("#right_post").hide();
+					$("#right_ok").hide();
+					$("#right_err").hide();
+                        var thread_access = function(){
+                            thread.forEach(function(p_thread){
+                                var likes =[];
+                                var getlikecallback = function(res){
+                                    var can_recursion=false;
+                                    if( typeof res.data !== 'undefined'){
+                                        res.data.forEach(function (dres){
+                                            likes.push(dres);
+                                            can_recursion = true;
+                                        });
+                                    }
+                                    if(can_recursion){
+                                        FB.api('/'+p_thread.id+'/likes&after='+res.paging.cursors.after,getlikecallback);
+                                    } else {
+                                        likes.forEach(function (user){
+                                            if(typeof user_likes[user.id]==='undefined'){
+                                                user_likes[user.id]={"count":1,"id":user.id,"name":user.name};
+                                                user_likes_list.push(user.id);
+                                            }else{
+                                                user_likes[user.id]['count']++;
+                                            }
+                                        })
+                                        msg_fetch_cnt++;
+                                        $("#loading_txt").html("อ่านไลค์แล้ว "+msg_fetch_cnt+" / "+thread.length);
+                                        //console.log("Fetch : "+msg_fetch_cnt+"/"+thread.length);
+                                        if(msg_fetch_cnt==thread.length){
+                                        //console.log("Start merge")
+                                            user_likes_list.forEach(function (ea){
+                                                result_likes.push(user_likes[ea]);
+                                            })
+                                            delete user_likes;
+                                            delete user_likes_list;
+                                            result_likes.sort(function(a,b){
+                                                if(a.count!=b.count){
+                                                    return b.count-a.count;
+                                                }else{
+                                                    if(a.name<b.name){
+                                                        return -1;
+                                                    } else {
+                                                        return 1;
+                                                    }
+                                                } 
+                                            });
+                                            var tabletxt="";
+                                            var cnt = 1;
+                                            result_likes.forEach(function(a){
+												//class='hidden-xs'
+                                                tabletxt+="<tr><td>"+ cnt + "</td><td><img src='https://graph.facebook.com/"+a.id+"/picture' ></img></td><td>"+a.name+"</td><td>"+a.count+"</td></tr>";
+                                                cnt++;
+                                            })
+                                            $('#like_table').append(tabletxt);
+                                            $('#like_table tr:eq(1)').remove();
+											$('#right_load').hide();
+											$('#right_post').show();
+                                            //console.log(JSON.stringify(result_likes));
+                                        }
+                                    }
+                                } 
+                                FB.api('/'+p_thread.id+'/likes',getlikecallback);
+                            })
+                        }
+                        var getpostcallback = function (msg){
+                            var day = 30;
+                            if($._GET("day")){
+                                day=$._GET("day");
+                            }
+                            if(day == 7){
+                                $("#fetchtimedisplay").html("เวลา 7 วัน");
+								time_ago = "1 สัปดาห์";
+							}
+							else if(day == 30){
+                                $("#fetchtimedisplay").html("เวลา 1 เดือน");
+                                time_ago = "1 เดือน";
+                            } else if(day == 90) {
+                                $("#fetchtimedisplay").html("เวลา 3 เดือน");
+								time_ago = " 3 เดือน";
+							} else if(day == 180) {
+                                $("#fetchtimedisplay").html("เวลา 6 เดือน");
+								time_ago = " 6 เดือน";
+							} else if(day == 365){
+                                $("#fetchtimedisplay").html("เวลา 1 ปี");
+								time_ago = " 1 ปี";
+							}else {
+							$("#fetchtimedisplay").html("เวลา "+day+" วัน");
+							    time_ago = day+" วัน";
+							}
+                           //console.log("getpostcallback -> "+JSON.stringify(msg));
+                            msg.data.forEach(function(p){
+                                if($._DateDiff(p.created_time)<=day){
+								thread.push(p); 
+								}else {
+
+                                    EOF = true;
+                                }
+                            });
+                            $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
+                            //console.log(thread.length);
+                            until = $._GET("until",msg.paging.next);
+                            if(EOF==true){
+                                thread_access();
+                            }else {
+                                FB.api('/me/posts?fields=id&until='+until,getpostcallback);
+                            }
+                        }
+                    FB.api('/me/posts?fields=id',getpostcallback);
+                } else{
+					console.log("Not logged in");
+					$("#app-display").hide();
+					$("#login-display").show();
+				}
+            })
+        };
+
     (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
@@ -85,7 +200,36 @@
 		$('body,html').stop(true,true).animate({scrollTop: 0}, 1000);
         });
     }
-    
+    var postfacebook = function() {
+		$("#right_post").hide();
+		$("#right_load").show();
+            var txt_postmsglength = 0;
+            if(result_likes.length>=5){
+                txt_postmsglength= 5;
+            } else {
+                txt_postmsglength= result_likes.length;
+            }
+            var i;
+            var txt_postmsg = 'ใน '+time_ago+'ที่ผ่านมาฉันโพส '+thread.length+' โพส\nเพื่อนที่เข้ามาไลค์มากที่สุดดังนี้';;
+            for(i=0;i<txt_postmsglength;i++){
+                txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+' ไลค์ '+result_likes[i].count+' ครั้ง ';
+            }
+            txt_postmsg+='\nอยากรู้อันดับเพื่อนที่เข้ามาไลค์คุณ เข้ามาที่ pureapp.in.th/toplike #pureapp';
+            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+						$("#right_load").hide();
+						if(!res.error_code){
+							$("#right_ok").show();
+						} else {
+						$("#right_err").show();
+							$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
+						}
+	    	});
+    }
+	var logintofacebook = function(){
+		FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox
+	}
 
 </script>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -108,12 +252,56 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div class="container" id="login-display" >
+<div class="container" id="login-display" style="display: none;">
 <div class="jumbotron">
-  <h1>ปิดชั่วคราว</h1>
-  <p>พบบัคร้ายแรง จะกลับมาใหม่ในไม่ช้า </p>
+  <h1>อีกขั้นเดียว!</h1>
+  <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ </p>
+  <ul>
+	<li>โพสข้อความของคุณ - ทุกแอปพลิเคชันของเราต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณเพื่อให้สามารถใช้การปุ่มโพสไปยังเฟสบุ๊คได้</li>
+	<li>เข้าถึงฟีดข่าวของคุณ - แอปคนที่ไลค์คุณมากสุดและคนที่คอมเม้นฉันมากสุดต้องการเข้าถึงฟีดข่าวของคุณเพื่อนับจำนวนคอมเม้นและไลค์</li>
+	<!-- <li>เข้าถึงข้อความของคุณ - แอปใครไลค์ฉันมากสุดต้องการเข้าถึงข้อความของคุณเพื่อนับจำนวนแชทของคุณ</li> -->
+ </ul> 
   <p>ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) </p>
+	  <p><button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></p>
 </div>
+</div>
+
+<div class="container" id="app-display" style="display: none;">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span id="fetchtimedisplay">กำลังโหลด</span> <span class="caret"></span>
+         </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="?day=7">7 วัน</a></li>
+            <li class="divider"></li>
+            <li><a href="?day=30">1 เดือน</a></li>
+            <li class="divider"></li>
+            <li><a href="?day=90">3 เดือน</a></li>
+            <li class="divider"></li>
+            <li><a href="?day=180">6 เดือน</a></li>
+            <li class="divider"></li>
+            <li><a href="?day=365">1 ปี</a></li>
+        </ul>
+    </div>
+
+ <div style="float:right;" id="right_post" style="display: none;">
+        <button onclick="postfacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
+</div>
+ <div style="float:right;" id="right_load" style="display: none;">
+        <button class="btn btn-warning" ><span>กำลังโหลด</span></button>
+</div>
+ <div style="float:right;" id="right_ok" style="display: none;">
+        <button class="btn btn-success" ><span>โพสเรียบร้อย</span></button>
+</div>
+ <div style="float:right;" id="right_err" style="display: none;">
+        <button class="btn btn-danger" ><span>ผิดพลาด</span><span id="err_msg"></span></button>
+</div>        
+	
+    <table class="table table-hover" id="like_table">
+	<!-- class="hidden-xs" -->
+        <thead><tr><th class="">#</th><th >รูป</th><th class="">ชื่อ</th><th class="">ไลค์</th></tr></thead>
+        <tr><td colspan="4"><center><p id="loading_txt">โหลดแล้ว 0 โพส</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
+    </table>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="height: 50px;">
