@@ -56,6 +56,19 @@
 				}
 			);
 	}
+		var share_blog = function(){
+		FB.ui({
+			method: 'share',
+			href: 'http://blog.pureapp.in.th/',
+			},
+			function(response) {
+				if (response && !response.error_code) {
+				} else {
+				console.log('Error while posting.');
+				}
+				}
+			);
+	}
 	</script>
 
     <style>
@@ -134,7 +147,8 @@
       </div>
     </div>
   </div>
-    
+
+<!--  
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
 	<img alt="" src="data:image/png;base64,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" />
@@ -142,6 +156,17 @@
         <h3>ใครคอมเม้นฉันมากที่สุด</h3>
         <p>อยากรู้ไหมว่าใครชอบมากวนในโพสของคุณมากที่สุด  อยากรู้มาเล่นเพื่อกวนพวกเขากลับกันเลย</p>
         <p><a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-primary" role="button">เล่น</a> <a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-default" role="button">แบ่งปัน</a></p>
+      </div>
+    </div>
+  </div>
+  -->
+    <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+	<img alt="" src="data:image/png;base64,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" />
+		<div class="caption">
+        <h3>บล็อกชองเพียว</h3>
+        <p>อยากรู้ไหมว่าวันๆ เพียวทำอะไรอยู่ พร้อมทั้งเทคนิคการสร้างแอปตามฉบับเพียว สำหรับผู้ที่พร้อมในเส้นทางการเขียนโปรแกรม</p>
+        <p><a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-primary" role="button">อ่านบล็อก</a> <a href="javascript:alert('ยังไม่เปิดให้บริการจ้า');" class="btn btn-default" role="button">แบ่งปัน</a></p>
       </div>
     </div>
   </div>
