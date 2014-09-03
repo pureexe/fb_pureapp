@@ -45,9 +45,9 @@
 			}
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
-                	return (new Date().getTime()/1000-dateFromString(strDate1).get time()/1000)/(60*60*24);
+                	return (new Date().getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
             } else {
-					return (dateFromString(strDate2).get time()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
+					return (dateFromString(strDate2).getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
             }
         }                
         // Global Variable
