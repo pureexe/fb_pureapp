@@ -90,7 +90,7 @@
                                         });
                                     }
                                     if(can_recursion){
-                                        FB.api('/'+p_thread.id+'/comments?fields=from&after='+res.paging.cursors.after,getlikecallback);
+                                        FB.api('/'+p_thread.id+'/comments?fields=id,from&after='+res.paging.cursors.after,getlikecallback);
                                     } else {
                                         likes.forEach(function (user){
                                             if(typeof user_likes[user.id]==='undefined'){
@@ -136,7 +136,7 @@
                                         }
                                     }
                                 } 
-                                FB.api('/'+p_thread.id+'/comments?fields=from',getlikecallback);
+                                FB.api('/'+p_thread.id+'/comments?fields=id,from',getlikecallback);
                             })
                         }
                         var getpostcallback = function (msg){
