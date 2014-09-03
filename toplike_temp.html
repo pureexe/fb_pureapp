@@ -45,6 +45,7 @@
 			}
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
+		   			$("#loading_txt").html("เทียบเวลา "+(new Date().getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24));
                 	return (new Date().getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
             } else {
 					return (dateFromString(strDate2).getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
@@ -137,7 +138,7 @@
                             })
                         }
                         var getpostcallback = function (msg){
-                            var day = 30;
+		                    var day = 30;
                             if($._GET("day")){
                                 day=$._GET("day");
                             }
@@ -174,11 +175,13 @@
                             //console.log(thread.length);
                             until = $._GET("until",msg.paging.next);
                             if(EOF==true){
-$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");                                thread_access();
+							$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
+							thread_access();
                             }else {
                                 FB.api('/me/posts?fields=id&until='+until,getpostcallback);
                             }
                         }
+					$("#loading_txt").html("กำลังใช้ graph api");
                     FB.api('/me/posts?fields=id',getpostcallback);
                 } else{
 					console.log("Not logged in");
