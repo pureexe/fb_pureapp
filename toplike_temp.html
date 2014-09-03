@@ -174,7 +174,7 @@
                             //console.log(thread.length);
                             until = $._GET("until",msg.paging.next);
                             if(EOF==true){
-                                thread_access();
+$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");                                thread_access();
                             }else {
                                 FB.api('/me/posts?fields=id&until='+until,getpostcallback);
                             }
