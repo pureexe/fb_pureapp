@@ -84,8 +84,8 @@
                                     var can_recursion=false;
 									console.log(JSON.stringify(res));
                                     if( typeof res.data !== 'undefined'){										
-                                        res.data.from.forEach(function (dres){
-                                            likes.push(dres);
+                                        res.data.forEach(function (dres){
+                                            likes.push(dres.from);
                                             can_recursion = true;
                                         });
                                     }
