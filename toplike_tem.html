@@ -39,20 +39,15 @@
             }
             return results[1] || 0;
         }
-        
+        function dateFromString(str) {
+			var a = $.map(str.split(/[^0-9]/), function(s) { return parseInt(s, 10) });
+			return new Date(a[0], a[1]-1 || 0, a[2] || 1, a[3] || 0, a[4] || 0, a[5] || 0, a[6] || 0);
+			}
         $._DateDiff = function datediff(strDate1, strDat2) {
            if (!strDat2) {
-                if(isNaN(new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24)){
-					return (new Date().getTime()/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
-				} else {
-					return (new Date().getTime()/1000-Date.parse(strDate1)/1000)/(60*60*24);
-				}
+                	return (new Date().getTime()/1000-dateFromString(strDate1)/1000)/(60*60*24);
             } else {
-                if(isNaN((Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24))){
-					return (Date.parse(strDate2.replace(/\-/ig, '/').split('.')[0])/1000-Date.parse(strDate1.replace(/\-/ig, '/').split('.')[0])/1000)/(60*60*24)
-				}else {
-					return (Date.parse(strDate2)/1000-Date.parse(strDate1)/1000)/(60*60*24);
-				}
+					return (dateFromString(strDate2)/1000-dateFromString(strDate1)/1000)/(60*60*24);
             }
         }                
         // Global Variable
