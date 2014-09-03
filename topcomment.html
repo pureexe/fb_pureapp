@@ -82,7 +82,8 @@
                                 var likes =[];
                                 var getlikecallback = function(res){
                                     var can_recursion=false;
-                                    if( typeof res.data !== 'undefined'){
+									console.log(JSON.stringify(res));
+                                    if( typeof res.data !== 'undefined'){										
                                         res.data.from.forEach(function (dres){
                                             likes.push(dres);
                                             can_recursion = true;
