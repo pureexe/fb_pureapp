@@ -66,7 +66,7 @@
     var postfacebook = function() {
 		$("#right_post").hide();
 		$("#right_load").show();
-        FB.api('/me/photos', 'post', { message: "ทดสอบโพสรูปจาก กราฟ api",url:"img/chat.png"},function(res) {
+        FB.api('/me/photos', 'post', { message: "ทดสอบโพสรูปจาก กราฟ api",url:"http://fb.pureapp.in.th/img/chat.png"},function(res) {
 				
 					$("#right_load").hide();
 					if(!res.error_code){
