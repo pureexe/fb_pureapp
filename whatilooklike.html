@@ -63,32 +63,7 @@
     var postfacebook = function() {
 		$("#right_post").hide();
 		$("#right_load").show();
-            var threadlistlength  = 0;
-            if(threadlist.length>=5){
-                threadlistlength= 5;
-            } else {
-                threadlistlength= result_likes.length;
-            }
-            var i;
-            var txt_postmsg = 'เพื่อนที่ฉันคุยด้วยมากที่สุด';
-            for(i=0;i<threadlistlength;i++){
-                txt_postmsg+='\nอันดับ '+(i+1)+ " ได้แก่ ";
-				if(tab_name[i].length==0){
-					txt_postmsg += "บัญชีถูกลบ"
-				}else if(tab_name[i].length==1){
-					txt_postmsg += tab_name[i][0].name;
-				}else {
-					var nameofgroup="";
-								a.forEach(function(q){
-									nameofgroup += q.name+","
-								});
-								nameofgroup = nameofgroup.substring(0, nameofgroup.length - 1);
-					txt_postmsg += nameofgroup;
-				}
-				txt_postmsg += " -> "+threadlist[i].message_count+" แชท"
-            }
-            txt_postmsg+='\nสามารถดูเพิ่มเติมได้อีกถึง 50 อันดับ \nเข้ามาที่ pureapp.in.th/topchat #pureapp';
-            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+        FB.api('/me/photos', 'post', { message: "ทดสอบโพสรูปจาก กราฟ api",url:"img/chat.png"},function(res) {
 				
 					$("#right_load").hide();
 					if(!res.error_code){
@@ -98,7 +73,6 @@
 							$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
 						}
         	});
-
     }
 	var logintofacebook = function(){
 		FB.login(function(){
