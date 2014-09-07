@@ -174,8 +174,13 @@
                             });
                             $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
                             //console.log(thread.length);
-                            until = $._GET("until",msg.paging.next);
-                            if(EOF==true){
+							if(!msg.paging)
+							{
+								$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+thread.length+" โพส");
+							} else {
+								until = $._GET("until",msg.paging.next);
+							}
+							if(EOF==true){
 							$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
 							thread_access();
                             }else {
