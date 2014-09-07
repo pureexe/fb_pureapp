@@ -69,9 +69,8 @@
                 xfbml      : true,
                   version    : 'v2.0'
             });
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-					$("#app-display").show();
+			var  appmain =function(){
+								$("#app-display").show();
 					$("#login-display").hide();
 					$("#right_post").hide();
 					$("#right_ok").hide();
@@ -188,6 +187,25 @@
                         }
 					
                     FB.api('/me/posts?fields=id',getpostcallback);
+			}
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+					FB.api("/me/permissions",function(perm){
+						var canread = false;
+						perm.data.forEach(function(a){
+							if(a.permission == 'read_stream'){
+								canread = true;
+							}
+						});
+						if(canread){
+							appmain();
+						} else {
+							$("#app-display").hide();
+							$("#login-display").show();
+						}
+					});
+					$("#app-display").hide();
+					$("#login-display").show();
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
