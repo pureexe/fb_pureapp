@@ -174,9 +174,9 @@
                             });
                             $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
                             //console.log(thread.length);
-							if(!msg.paging)
+							if(msg.error_code)
 							{
-								$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+thread.length+" โพส");
+								$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+msg.error_code);
 							} else {
 								until = $._GET("until",msg.paging.next);
 							}
