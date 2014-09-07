@@ -71,7 +71,20 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-					
+					FB.api('/me/permissions',function(re){
+						var grant = false;
+						re.forEach(a){
+							if(a.permission=="read_stream"){
+								grant = true;
+							}
+						}
+						if(!grant){
+								FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox
+
+						}
+					})
 					$("#app-display").show();
 					$("#login-display").hide();
 					$("#right_post").hide();
