@@ -110,7 +110,8 @@
         }
 		fb.api('/me/inbox?fields=id,to',getchatlistcallback);
 	}
-/// Facebook Connector         
+	console.log("BEFORE init");
+	/// Facebook Connector         
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '351070565012663', // pure's app id
@@ -119,6 +120,7 @@
         });
 		/// callback Function declare
 		/// runing program
+		console.log("BEFORE CHECK login");
 		FB.getLoginStatus(function(response) {
 			if (response.status === 'connected') {
 				console.log('run');
