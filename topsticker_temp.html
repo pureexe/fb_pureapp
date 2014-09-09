@@ -121,6 +121,7 @@
 		/// runing program
 		FB.getLoginStatus(function(response) {
 			if (response.status === 'connected') {
+				console.log('run');
 				user_id = response.authResponse.userID;
 				FB.api("/me/permissions",function(perm){
 					var canread = false;
@@ -139,6 +140,7 @@
 					}
 				});
             }else{
+				console.log('not login');
 				$("#app-display").hide();
 				$("#login-display").show();
 			}	
