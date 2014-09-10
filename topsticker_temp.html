@@ -91,9 +91,6 @@
 		var EOF = false;
 //		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
-			if(p.created_time=='undefined'){
-				console.log('undefined time');
-			}
 			if($._DateDiff(p.created_time)<=day){
 				chatlist.push(p);
 				result.push(0);
@@ -103,7 +100,7 @@
 		})
 		if(EOF==false){
 			until = $._GET("until",res.paging.next);
-			FB.api('/me/posts?fields=id&until='+until,getchatlistcallback);
+			FB.api('/me/inbox?fields=id&until='+until,getchatlistcallback);
 		}else{
 			fetch_message();
 		}
