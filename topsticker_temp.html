@@ -71,7 +71,7 @@
 		});
 		var until;
 		if(!EOF){
-			console.log("!");
+			console.log(JSON.stringify(res));
 			until = $._GET("until",res.paging.next);
 			FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
 		}
