@@ -71,20 +71,21 @@
 		});
 		if(!EOF){
 			until = $._GET("until",res.paging.next);
-			fb.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}&until='+until,fetchmessagecallback);
+			FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}&until='+until,fetchmessagecallback);
 		}
 		else{
 			chatlist_ptr++;
 			if(chatlist_ptr!=chatlist.length){
-				fb.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
+				FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
 			}else{
 				// end of recursive calling
 				console.log("END app");
+				console.log(JSON.stringify(result));
 			}
 		}
 	}
 	var fetch_message = function(){
-		fb.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
+		FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
@@ -108,7 +109,7 @@
 		if($._GET("day")){
             day=$._GET("day");
         }
-		fb.api('/me/inbox?fields=id,to',getchatlistcallback);
+		FB.api('/me/inbox?fields=id,to',getchatlistcallback);
 	}
 	console.log("BEFORE init");
 	/// Facebook Connector         
