@@ -96,6 +96,7 @@
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
+		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
 			if($._DateDiff(p.updated_time)<=day){
 				if(p.to.data.length==2){
