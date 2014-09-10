@@ -99,7 +99,7 @@
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
-		if(res.error.message){
+		if(res.error){
 			console.log(res.error.message);
 		}
 		res.data.forEach(function(p){
