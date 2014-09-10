@@ -80,14 +80,14 @@
 			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
-				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback),1000);
+				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback),10000);
 			}
 		}
 		else{
 			chatlist_ptr++;
 			console.log("Process "+chatlist_ptr+" / "+chatlist.length);
 			if(chatlist_ptr!=chatlist.length){
-				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),1000);
+				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),10000);
 			}else{
 				// end of recursive calling
 				console.log("END app");
@@ -96,7 +96,7 @@
 		}
 	}
 	var fetch_message = function(){
-		setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),1000);
+		setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),10000);
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
@@ -117,7 +117,7 @@
 			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
-				setTimeout(FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback),1000);
+				setTimeout(FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback),10000);
 			}
 		}else{
 			fetch_message();
