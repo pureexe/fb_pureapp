@@ -73,7 +73,7 @@
 		});
 		if(!EOF){
 			console.log(JSON.stringify(res));
-			t_until = $._GET("until",res.paging.next
+			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
 				FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
