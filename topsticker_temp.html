@@ -71,6 +71,7 @@
 		});
 		var until;
 		if(!EOF){
+			console.log("!");
 			until = $._GET("until",res.paging.next);
 			FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
 		}
@@ -91,10 +92,6 @@
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
-		console.log(JSON.stringify(res));
-		if(res.error_code){
-			console.log(JSON.stringify(res));
-		}
 		res.data.forEach(function(p){
 			if($._DateDiff(p.updated_time)<=day){
 				if(p.to.data.length==2){
