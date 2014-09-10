@@ -39,14 +39,7 @@
         }
         return results[1] || 0;
     }
-	var sleep = function(milliseconds){
-	var start = new Date().getTime();
-	for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-	}
+
     function dateFromString(str) {
 		var a = $.map(str.split(/[^0-9]/), function(s) { return parseInt(s, 10) });
 		return new Date(a[0], a[1]-1 || 0, a[2] || 1, a[3] || 0, a[4] || 0, a[5] || 0, a[6] || 0);
@@ -87,16 +80,14 @@
 			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
-				sleep(1000);
-				FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
+				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback),1000);
 			}
 		}
 		else{
 			chatlist_ptr++;
 			console.log("Process "+chatlist_ptr+" / "+chatlist.length);
 			if(chatlist_ptr!=chatlist.length){
-				sleep(1000);
-				FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback);
+				setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),1000);
 			}else{
 				// end of recursive calling
 				console.log("END app");
@@ -105,8 +96,7 @@
 		}
 	}
 	var fetch_message = function(){
-		sleep(1000);
-		FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback);
+		setTimeout(FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback),1000);
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
@@ -127,8 +117,7 @@
 			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
-				sleep(1000);
-				FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback);
+				setTimeout(FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback),1000);
 			}
 		}else{
 			fetch_message();
@@ -139,7 +128,6 @@
 		if($._GET("day")){
             day=$._GET("day");
         }
-		sleep(1000);
 		FB.api('/me/inbox?fields=id,to',getchatlistcallback);
 	}
 	console.log("BEFORE init");
