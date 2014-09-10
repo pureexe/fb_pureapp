@@ -61,7 +61,7 @@
 		// Modify this to detect some message;
 		var EOF = false;
 		console.log(JSON.stringify(res));
-		res.comments.data.forEach(function(p){
+		res.data.forEach(function(p){
 			if($._DateDiff(p.created_time)<=day){
 				if(p.from.id!=user_id&&p.message=='undefined'){
 					result[chatlist_ptr]++;
