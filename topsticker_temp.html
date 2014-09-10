@@ -60,7 +60,7 @@
 	var fetchmessagecallback = function(res){
 		// Modify this to detect some message;
 		var EOF = false;
-		console.log(JSON.stringify(res));
+
 		res.data.forEach(function(p){
 			if($._DateDiff(p.created_time)<=day){
 				if(p.from.id!=user_id&&p.message=='undefined'){
@@ -70,8 +70,11 @@
 				EOF = true;
 			}
 		});
+		console.log("D");
+		var until;
 		if(!EOF){
 			until = $._GET("until",res.paging.next);
+			console.log(until);
 			FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&='+until,fetchmessagecallback);
 		}
 		else{
