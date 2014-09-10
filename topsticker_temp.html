@@ -93,9 +93,9 @@
 //		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
 			if($._DateDiff(p.updated_time)<=day){
-				if(p.to.length==2){
-				chatlist.push(p);
-				result.push(0);
+				if(p.to.data.length==2){
+					chatlist.push(p);
+					result.push(0);
 				}
 			} else {
 				EOF = true;
