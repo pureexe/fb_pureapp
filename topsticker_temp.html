@@ -61,6 +61,9 @@
 /// Global function
 	var fetchmessagecallback = function(res){
 		// Modify this to detect some message;
+		if(res.error.message){
+			console.log(res.error.message);
+		}
 		var EOF = false;
 		res.data.forEach(function(p){
 			if($._DateDiff(p.created_time)<=day){
@@ -96,7 +99,9 @@
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
-		console.log(JSON.stringify(res));
+		if(res.error.message){
+			console.log(res.error.message);
+		}
 		res.data.forEach(function(p){
 			if($._DateDiff(p.updated_time)<=day){
 				if(p.to.data.length==2){
