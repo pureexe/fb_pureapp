@@ -85,13 +85,13 @@
 		}
 	}
 	var fetch_message = function(){
+		console.log(JSON.stringify(chatlist));
 		FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
 //		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
-			console.log(JSON.stringify(p));
 			if($._DateDiff(p.updated_time)<=day){
 				if(p.to.length==2){
 				chatlist.push(p);
