@@ -72,12 +72,12 @@
 		});
 		if(!EOF){
 			until = $._GET("until",res.comments.paging.next);
-			FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}&until='+until,fetchmessagecallback);
+			FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&='+until,fetchmessagecallback);
 		}
 		else{
 			chatlist_ptr++;
 			if(chatlist_ptr!=chatlist.length){
-				FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
+				FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback);
 			}else{
 				// end of recursive calling
 				console.log("END app");
@@ -86,7 +86,7 @@
 		}
 	}
 	var fetch_message = function(){
-		FB.api('/'+chatlist[chatlist_ptr].id+'/?fields=comments{from,message}',fetchmessagecallback);
+		FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message',fetchmessagecallback);
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
