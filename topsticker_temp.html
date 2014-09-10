@@ -91,7 +91,7 @@
 		var EOF = false;
 //		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
-			console.log("C");
+			console.log(JSON.stringify(p));
 			if($._DateDiff(p.created_time)<=day){
 				chatlist.push(p);
 				result.push(0);
