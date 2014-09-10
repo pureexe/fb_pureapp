@@ -56,6 +56,8 @@
 	var chatlist_ptr=0;
 	var result=[];
 	var user_id;
+	var until;
+	var t_until;
 /// Global function
 	var fetchmessagecallback = function(res){
 		// Modify this to detect some message;
@@ -69,11 +71,13 @@
 				EOF = true;
 			}
 		});
-		var until;
 		if(!EOF){
 			console.log(JSON.stringify(res));
-			until = $._GET("until",res.paging.next);
-			FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
+			t_until = $._GET("until",res.paging.next
+			if(until!=t_until){
+				until=t_until;
+				FB.api('/'+chatlist[chatlist_ptr].id+'/comments?fields=from,message&until='+until,fetchmessagecallback);
+			}
 		}
 		else{
 			chatlist_ptr++;
@@ -103,8 +107,11 @@
 			}
 		})
 		if(EOF==false){
-			until = $._GET("until",res.paging.next);
-			FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback);
+			t_until = $._GET("until",res.paging.next);
+			if(until!=t_until){
+				until=t_until;
+				FB.api('/me/inbox?fields=id,to&until='+until,getchatlistcallback);
+			}
 		}else{
 			fetch_message();
 		}
