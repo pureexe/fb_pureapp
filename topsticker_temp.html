@@ -61,7 +61,7 @@
 		// Modify this to detect some message;
 		var EOF = false;
 		res.comments.data.forEach(function(p){
-			if($._DateDiff(p.updated_time)<=day){
+			if($._DateDiff(p.created_time)<=day){
 				if(p.from.id!=user_id&&p.message=='undefined'){
 					result[chatlist_ptr]++;
 				}
@@ -93,8 +93,10 @@
 		res.data.forEach(function(p){
 			console.log(JSON.stringify(p));
 			if($._DateDiff(p.updated_time)<=day){
+				if(p.to.length==2){
 				chatlist.push(p);
 				result.push(0);
+				}
 			} else {
 				EOF = true;
 			}
