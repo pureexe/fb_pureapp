@@ -72,7 +72,7 @@
 			}
 		});
 		if(!EOF){
-			console.log(JSON.stringify(res));
+			console.log("Pr = "+chatlist_ptr);
 			t_until = $._GET("until",res.paging.next);
 			if(until!=t_until){
 				until=t_until;
