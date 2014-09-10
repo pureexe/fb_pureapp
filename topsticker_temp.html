@@ -91,6 +91,9 @@
 		var EOF = false;
 //		console.log(JSON.stringify(res));
 		res.data.forEach(function(p){
+			if(p.created_time=='undefined'){
+				console.log('undefined time');
+			}
 			if($._DateDiff(p.created_time)<=day){
 				chatlist.push(p);
 				result.push(0);
