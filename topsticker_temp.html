@@ -89,7 +89,7 @@
 	}
 	var getchatlistcallback = function(res){
 		var EOF = false;
-		console.log("do");
+		console.log(JSON.stringify(res));
 		res.forEach(function(p){
 			if($._DateDiff(p.created_time)<=day){
 				chatlist.push(p);
