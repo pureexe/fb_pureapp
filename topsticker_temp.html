@@ -40,7 +40,12 @@
         return results[1] || 0;
     }
 	var sleep = function(time){
-        setTimeout(sleep, time); // check again in a second
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 	}
     function dateFromString(str) {
 		var a = $.map(str.split(/[^0-9]/), function(s) { return parseInt(s, 10) });
