@@ -198,20 +198,30 @@
     }(document, 'script', 'facebook-jssdk'));
 
     var postfacebook = function() {
+		$("#right_post").hide();
+		$("#right_load").show();
+		var canvas = document.getElementById("stats-display");
 		var data = canvas.toDataURL("image/png");
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
+		
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, "pure's app stat", "image/png", decodedPng, "อัตราในการกดไลค์โพสของฉันต่อวันเป็นดังนี้ อยากรู้สถิติการกดไลค์ของคุณบ้างไหม เชิญที่ pureapp.in.th");
+			$("#right_load").hide();
+			$("#right_ok").show();
 		} else if (response.status === "not_authorized") {
 			FB.login(function(response) {
-			postImageToFacebook(response.authResponse.accessToken, "pure's app stat", "image/png", decodedPng, "อัตราในการกดไลค์โพสของฉันต่อวันเป็นดังนี้ อยากรู้สถิติการกดไลค์ของคุณบ้างไหม เชิญที่ pureapp.in.th");
+				postImageToFacebook(response.authResponse.accessToken, "pure's app stat", "image/png", decodedPng, "อัตราในการกดไลค์โพสของฉันต่อวันเป็นดังนี้ อยากรู้สถิติการกดไลค์ของคุณบ้างไหม เชิญที่ pureapp.in.th");
+				$("#right_load").hide();
+				$("#right_ok").show();
 			}, {scope: "publish_stream"});
 		} else {
 		FB.login(function(response)  { 
 			postImageToFacebook(response.authResponse.accessToken, "pure's app stat", "image/png", decodedPng, "อัตราในการกดไลค์โพสของฉันต่อวันเป็นดังนี้ อยากรู้สถิติการกดไลค์ของคุณบ้างไหม เชิญที่ pureapp.in.th");
-		 }, {scope: "publish_stream"});
+			$("#right_load").hide();
+			$("#right_ok").show();
+		}, {scope: "publish_stream"});
 	  }
 	 });
     }
