@@ -76,7 +76,6 @@
 			console.log(xhr.responseText);
 		};
 		xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-		xhr.overrideMimeType('text/plain;charset=TIS-620'); //
 		try {
 		if (typeof XMLHttpRequest.prototype.sendAsBinary == 'undefined') {
 		XMLHttpRequest.prototype.sendAsBinary = function(text){
@@ -216,7 +215,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = "ทดสอบภาษาไทย pureapp.in.th";
+		var messagepost = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤ pureapp.in.th";
 		// hello
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
