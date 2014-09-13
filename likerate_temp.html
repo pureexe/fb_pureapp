@@ -90,6 +90,7 @@
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				console.log(JSON.stringify(daylist));
 				var ctx = document.getElementById("stats-display").getContext("2d");
+				daylist.reverse();
 				var chartdata = {
 					labels: ["6 วันก่อน", "5 วันก่อน", "4 วันก่อน", "3 วันก่อน", "เมื่อวานซืน", "เมื่อวาน", "วันนี้"],
 					datasets: [
@@ -101,11 +102,9 @@
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
 						pointHighlightStroke: "rgba(151,187,205,1)",
-						data: [28, 48, 40, 19, 86, 27, 90]
+						data: daylist
 					}
 				]};
-				daylist.reverse();
-				chartdata.datasets.data = daylist;
 				var myLineChart = new Chart(ctx).Line(chartdata);
 			} else {
 					round++;
