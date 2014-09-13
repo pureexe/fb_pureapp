@@ -210,12 +210,31 @@
     var postfacebook = function() {
 		$("#right_post").hide();
 		$("#right_load").show();
-		var canvas = document.getElementById("stats-display");
+			var ctx = document.getElementById("stats-post").getContext("2d");
+				var canvas = document.getElementById("stats-post")
+				canvas.width  = 800;
+				canvas.height = 600; 
+				daylist.reverse();
+				var chartdata = {
+					labels: ["6 วันก่อน", "5 วันก่อน", "4 วันก่อน", "3 วันก่อน", "2 วันก่อน", "วันก่อน", "วันนี้"],
+					datasets: [
+					{
+						label: "อัตราการกดไลค์",
+						fillColor: "rgba(151,187,205,0.2)",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: daylist
+					}
+				]};
+				var myLineChart = new Chart(ctx).Line(chartdata);
 		var data = canvas.toDataURL("image/png");
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
-		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost =  unescape(encodeURIComponent("จำนวนคนที่กดไลค์โพสของฉันในรอบ 7 วัน\n อยากรู้ว่าโพสของคุณทั้งหมดในรอย 7 วันมีคนกดไลค์กี่คนเข้ามาเล่นได้ที่  pureapp.in.th/likerate #pureapp"));
+		var imagename=unescape(encodeURIComponent("อัตราการกดไลค์ของโพสฉัน โดยpureapp.in.th"));
+		var messagepost =  unescape(encodeURIComponent("จำนวนคนที่กดไลค์โพสของฉันในรอบ 7 วัน \n\nอยากรู้ว่าโพสของคุณทั้งหมดในรอบ 7 วันมีคนกดไลค์กี่คนเข้ามาเล่นได้ที่  pureapp.in.th/likerate #pureapp"));
 		// hello
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
@@ -310,6 +329,7 @@
 </div>
 	<center><div class="loading_dialog"><p id="loading_txt">โหลดแล้ว 0 โพส</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></div></center>
 	<center><div class="canvas_dialog"><canvas id="stats-display"></canvas></div></center>
+	<center><div class="canvas_post"><canvas id="stats-post"></canvas></div></center>
 </div>
 <div id="counterdiv"></div>
 
