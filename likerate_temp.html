@@ -215,7 +215,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = "กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤ pureapp.in.th".encode('utf-8');
+		var messagepost =  unescape(encodeURIComponent("กขฃคฅฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรฤ pureapp.in.th"));
 		// hello
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
