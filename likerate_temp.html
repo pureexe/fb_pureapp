@@ -70,6 +70,7 @@
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
 			res.forEach(function(p){
+				console.log("See day = "+day)
 				if(p.actor_id == user_id && $._DateDiff(p.created_time)<=day){
 					if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
 						daylist.push(parseInt(p.like_info.like_count));
