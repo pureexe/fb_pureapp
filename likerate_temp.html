@@ -215,7 +215,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = "U+0E31 U+0E15 U+0E23 U+0E32 U+0E01 U+0E32 U+0E23 U+0E01 U+0E14 U+0E44 U+0E25 U+0E04 U+0E4C U+0E02 U+0E2D U+0E07 U+0E42 U+0E1E U+0E2A U+0E09 U+0E31 U+0E19";
+		var messagepost = "ทดสอบภาษาไทย";
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, imagename, "image/png", decodedPng, messagepost);
