@@ -73,7 +73,7 @@
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
 			res.forEach(function(p){
-				if(p.actor_id==user_id && p.type!= 257&&$._DateDiff(p.created_time)<=day){
+				if(p.actor_id==user_id && p.type!='null'&&$._DateDiff(p.created_time)<=day){
 					if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
 						daylist.push(p.like_info.like_count)
 					}else{
