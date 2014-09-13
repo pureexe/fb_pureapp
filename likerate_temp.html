@@ -57,6 +57,7 @@
     var t_until="";
     var user_id="";
     var day = 7;
+	var daylist = [];
 	if($._GET("day")){
 		day = $._GET("day");
 	}
@@ -69,8 +70,22 @@
             version    : 'v2.0'
         });
 		var countcallback = function(res){
+			if(Math.ceil($._DateDiff(post[likeview].created_time)==daylist.length)){
+				daylist[daylist.length-1] += res.like_info.like_count;
+			}else{
+				daylist.push(res.like_info.like_count);
+			}
 			likeview++;
-			console.log(JSON.stringify(res));
+			if(likeview<post){
+				FB.api({
+					method: 'fql.query',
+					query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'"
+				},countcallback);
+			}
+			else {
+				// finish fetch phase
+				console.log(JSON.stringify(daylist));
+			}
 		}
 		var countalllike = function(){
 			FB.api({
@@ -94,7 +109,6 @@
 			}
 			if(EOF==true){
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post.length+" โพส");
-				console.log(JSON.stringify(post));
 				countalllike();
 			} else {
 				if(res.paging){
