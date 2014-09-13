@@ -57,19 +57,15 @@
 		var boundary = '----ThisIsTheBoundary1234567890';   
 		// let's encode our image file, which is contained in the var
 		var formData = '--' + boundary + '\r\n'
-		var encodemessage="";
 		formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
 		formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
 		for ( var i = 0; i < imageData.length; ++i ){
 			formData += String.fromCharCode( imageData[ i ] & 0xff );
 		}
-		for(var i = 0; i < message.length; ++i ){
-			encodemessage += String.fromCharCode( message[ i ] & 0xff );
-		}
 		formData += '\r\n';
 		formData += '--' + boundary + '\r\n';
 		formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
-		formData += encodemessage + '\r\n'
+		formData += message + '\r\n'
 		formData += '--' + boundary + '--\r\n';
 		var xhr = new XMLHttpRequest();
 		xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken+'&message=helloworld', true );
@@ -79,6 +75,8 @@
 			console.log(xhr.responseText);
 		};
 		xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
+		xhr.overrideMimeType('text/plain;charset=UTF-8');
+		xhr.setCharacterEncoding("UTF-8");
 		try {
 		if (typeof XMLHttpRequest.prototype.sendAsBinary == 'undefined') {
 		XMLHttpRequest.prototype.sendAsBinary = function(text){
@@ -218,7 +216,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = "กดไลค์";
+		var messagepost = "U+0E31 U+0E15 U+0E23 U+0E32 U+0E01 U+0E32 U+0E23 U+0E01 U+0E14 U+0E44 U+0E25 U+0E04 U+0E4C U+0E02 U+0E2D U+0E07 U+0E42 U+0E1E U+0E2A U+0E09 U+0E31 U+0E19";
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, imagename, "image/png", decodedPng, messagepost);
