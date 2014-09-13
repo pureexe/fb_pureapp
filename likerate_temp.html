@@ -75,7 +75,7 @@
 		var countalllike = function(){
 			FB.api({
             method: 'fql.query',
-            query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'";
+            query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'"
 			},countcallback);
 		}
 		var getpostcallback = function(res){
