@@ -45,7 +45,7 @@
     }
     $._DateDiff = function datediff(strDate1, strDat2) {
 		if (!strDat2) {
-			return (new Date().getTime()/1000-new Date(strDate1).getTime()/1000)/(60*60*24);
+			return (new Date().getTime()/1000-strDate1)/(60*60*24);
         } else {
 			// nolonger
 			return (dateFromString(strDate2).getTime()/1000-dateFromString(strDate1).getTime()/1000)/(60*60*24);
@@ -73,13 +73,14 @@
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
 			res.forEach(function(p){
-				if($._DateDiff((p.created_time*1000<=day))){
-					if(Math.ceil($._DateDiff(p.created_time*1000))>daylist.length){
+				if($._DateDiff((p.created_time<=day))){
+					if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
 						daylist.push(p.like_info.like_count)
 					}else{
 						daylist[daylist.length-1]+=p.like_info.like_count;
 					}
 					post_count++;
+					console.log($._DateDiff((p.created_time<=day)));
 				}else {
 					EOF = true;
 				}
