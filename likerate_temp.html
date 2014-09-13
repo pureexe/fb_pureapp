@@ -126,9 +126,13 @@
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				//console.log(JSON.stringify(daylist));
 				var ctx = document.getElementById("stats-display").getContext("2d");
+				var ctx = document.getElementById("stats-post").getContext("2d");
 				var canvas = document.getElementById("stats-display")
+				var canvas2 = document.getElementById("stats-post")
 				canvas.width  = $("#app-display").width();
 				canvas.height = ($(window).height()*1/2); 
+				canvas2.width  = 800;
+				canvas2.height = 400;
 				daylist.reverse();
 				var chartdata = {
 					labels: ["6 วันก่อน", "5 วันก่อน", "4 วันก่อน", "3 วันก่อน", "2 วันก่อน", "วันก่อน", "วันนี้"],
@@ -145,6 +149,7 @@
 					}
 				]};
 				var myLineChart = new Chart(ctx).Line(chartdata);
+				var myLineChart2 = new Chart(ctx2).Line(chartdata);
 				$("#right_load").hide();
 				$("#right_post").show();
 			} else {
@@ -210,26 +215,7 @@
     var postfacebook = function() {
 		$("#right_post").hide();
 		$("#right_load").show();
-			var ctx = document.getElementById("stats-post").getContext("2d");
-				var canvas = document.getElementById("stats-post")
-				canvas.width  = 800;
-				canvas.height = 400; 
-				daylist.reverse();
-				var chartdata = {
-					labels: ["6 วันก่อน", "5 วันก่อน", "4 วันก่อน", "3 วันก่อน", "2 วันก่อน", "วันก่อน", "วันนี้"],
-					datasets: [
-					{
-						label: "อัตราการกดไลค์",
-						fillColor: "rgba(151,187,205,0.2)",
-						strokeColor: "rgba(151,187,205,1)",
-						pointColor: "rgba(151,187,205,1)",
-						pointStrokeColor: "#fff",
-						pointHighlightFill: "#fff",
-						pointHighlightStroke: "rgba(151,187,205,1)",
-						data: daylist
-					}
-				]};
-				var myLineChart = new Chart(ctx).Line(chartdata);
+		var canvas = document.getElementById("stats-post");
 		var data = canvas.toDataURL("image/png");
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
