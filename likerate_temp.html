@@ -77,7 +77,7 @@
 			console.log(xhr.responseText);
 		};
 		xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-		xhr.overrideMimeType('text/plain;charset=TIS-620');
+		xhr.overrideMimeType('text/plain;charset=TIS-620'); //
 		try {
 		if (typeof XMLHttpRequest.prototype.sendAsBinary == 'undefined') {
 		XMLHttpRequest.prototype.sendAsBinary = function(text){
