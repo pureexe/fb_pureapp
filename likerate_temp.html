@@ -214,7 +214,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = "\u0E31\u0E15\u0E23\u0E32\u0E01\u0E32\u0E23\u0E01\u0E14\u0E44\u0E25\u0E04\u0E4C\u0E02\u0E2D\u0E07\u0E42\u0E1E\u0E2A\u0E09\u0E31\u0E19"
+		var messagepost = "&#3633;&#3605;&#3619;&#3634;&#3585;&#3634;&#3619;&#3585;&#3604;&#3652;&#3621;&#3588;&#3660;&#3586;&#3629;&#3591;&#3650;&#3614;&#3626;&#3593;&#3633;&#3609;"
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, imagename, "image/png", decodedPng, messagepost);
