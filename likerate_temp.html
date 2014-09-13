@@ -73,7 +73,16 @@
 			console.log(xhr.responseText);
 		};
 		xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-		console.log(xhr);
+		try {
+		if (typeof XMLHttpRequest.prototype.sendAsBinary == 'undefined') {
+		XMLHttpRequest.prototype.sendAsBinary = function(text){
+		var data = new ArrayBuffer(text.length);
+		var ui8a = new Uint8Array(data, 0);
+		for (var i = 0; i < text.length; i++) ui8a[i] = (text.charCodeAt(i) & 0xff);
+			this.send(ui8a);
+			}
+			}
+		} catch (e) {}
 		xhr.sendAsBinary(formData);
 	};
     // Global Variable
