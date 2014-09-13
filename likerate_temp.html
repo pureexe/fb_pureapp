@@ -216,6 +216,7 @@
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
 		var messagepost = "ทดสอบภาษาไทย";
+		// hello
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, imagename, "image/png", decodedPng, messagepost);
