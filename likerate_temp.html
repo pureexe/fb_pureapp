@@ -58,6 +58,7 @@
     var user_id="";
     var day = 7;
 	var daylist = [];
+	var round=1;
 	if($._GET("day")){
 		day = $._GET("day");
 	}
@@ -69,36 +70,14 @@
             xfbml      : true,
             version    : 'v2.0'
         });
-		var countcallback = function(res){
-			console.log(Math.ceil($._DateDiff(post[likeview].created_time)));
-			if(Math.ceil($._DateDiff(post[likeview].created_time)==daylist.length)){
-				daylist[daylist.length-1] += res.like_info.like_count;
-			}else{
-				daylist.push(res[0].like_info.like_count);
-			}
-			likeview++;
-			console.log("Data fetch = "+likeview);
-			if(likeview<post.length){
-				FB.api({
-					method: 'fql.query',
-					query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'"
-				},countcallback);
-			}
-			else {
-				// finish fetch phase
-				console.log(JSON.stringify(daylist));
-			}
-		}
-		var countalllike = function(){
-			FB.api({
-            method: 'fql.query',
-            query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'"
-			},countcallback);
-		}
 		var getpostcallback = function(res){
 			res.data.forEach(function(p){
-				if($._DateDiff(p.created_time)<=day){
-					post.push(p); 
+				if($._DateDiff(p.created_time*1000)<=day){
+					if(Math.ceil($._DateDiff(p.created_time*1000))>daylist.length){
+						daylist.push(p.like_info.like_count)
+					}else{
+						daylist[daylist.length-1]+=p.like_info.like_count;
+					}
 				}else {
 					EOF = true;
 				}
@@ -111,10 +90,13 @@
 			}
 			if(EOF==true){
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post.length+" โพส");
-				countalllike();
+				console.log(JSON.stringify(list))
 			} else {
 				if(res.paging){
-					FB.api('/me/posts?fields=id&until='+until,getpostcallback);
+					FB.api({
+						method: 'fql.query',
+						query: "SELECT created_time,like_info.like_count FROM stream WHERE source_id="+user_id+" LIMIT "+((50*round+)1)+","+(50*(round+1))
+					},countcallback);
 				}
 			}
 		}
@@ -124,7 +106,11 @@
 			$("#right_post").hide();
 			$("#right_ok").hide();
 			$("#right_err").hide();
-			FB.api('/me/posts?fields=id',getpostcallback);
+			FB.api({
+				method: 'fql.query',
+				query: "SELECT created_time,like_info.like_count FROM stream WHERE source_id="+user_id+" LIMIT 50"
+			},countcallback);
+
 		}
 		FB.getLoginStatus(function(response) {
             if (response.status === 'connected') {
