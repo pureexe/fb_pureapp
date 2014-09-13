@@ -91,7 +91,7 @@
 			} else {
 					FB.api({
 						method: 'fql.query',
-						query: "SELECT created_time,like_info.like_count FROM stream WHERE actor_id=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
+						query: "SELECT created_time,like_info.like_count,actor_id FROM stream WHERE source_id=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
 					},getpostcallback);
 			}
 		}
