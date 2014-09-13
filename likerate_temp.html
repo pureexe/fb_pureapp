@@ -73,14 +73,14 @@
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
 			res.forEach(function(p){
-				if($._DateDiff(p.time)<=day){
-					if(Math.ceil($._DateDiff(p.time))>daylist.length){
+				if(p.actor_id==user_id && p.type!= 257&&$._DateDiff(p.created_time)<=day){
+					if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
 						daylist.push(p.like_info.like_count)
 					}else{
 						daylist[daylist.length-1]+=p.like_info.like_count;
 					}
 					post_count++;
-					console.log($._DateDiff(p.time));
+					console.log($._DateDiff(p.created_time));
 				}else {
 					EOF = true;
 				}
@@ -93,7 +93,7 @@
 				if(res.paging){
 					FB.api({
 						method: 'fql.query',
-						query: "SELECT status_id,like_info.like_count,time  FROM status WHERE uid=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
+						query: "SELECT created_time,like_info.like_count,actor_id,type FROM stream WHERE source_id=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
 					},countcallback);
 				}
 			}
@@ -106,7 +106,7 @@
 			$("#right_err").hide();
 			FB.api({
 				method: 'fql.query',
-				query: "SELECT status_id,like_info.like_count,time  FROM status WHERE uid=me() LIMIT 50"
+				query: "SELECT created_time,like_info.like_count,actor_id,type FROM stream WHERE source_id=me() LIMIT 50"
 			},getpostcallback);
 
 		}
