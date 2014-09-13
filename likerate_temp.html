@@ -123,7 +123,8 @@
 			});
 			$("#loading_txt").html("โหลดแล้ว "+post_count+" โพส");
 			if(EOF==true){
-				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
+				$("#loading_dialog").hide();
+				//$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				//console.log(JSON.stringify(daylist));
 				var ctx = document.getElementById("stats-display").getContext("2d");
 				var ctx2 = document.getElementById("stats-post").getContext("2d");
@@ -151,6 +152,7 @@
 
 				var myLineChart = new Chart(ctx).Line(chartdata);
 				var myLineChart2 = new Chart(ctx2).Line(chartdata);
+				$("#canvas_dialog").show();
 				$("#right_load").hide();
 				$("#right_post").show();
 			} else {
@@ -162,16 +164,12 @@
 			}
 		}
 		var  appmain =function(){
+			$("#canvas_dialog").hide();
 			$("#app-display").show();
 			$("#login-display").hide();
 			$("#right_post").hide();
 			$("#right_ok").hide();
 			$("#right_err").hide();
-			if($._GET("day")){
-				day = $._GET("day");
-			//console.log("GET day = "+day);
-			}
-
 			FB.api({
 				method: 'fql.query',
 				query: "SELECT created_time,like_info.like_count,actor_id FROM stream WHERE source_id=me() LIMIT 50"
@@ -284,22 +282,6 @@
 </div>
 </div>
 <div>
-    <div class="btn-group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span id="fetchtimedisplay">กำลังโหลด</span> <span class="caret"></span>
-         </button>
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="?day=7">7 วัน</a></li>
-            <li class="divider"></li>
-            <li><a href="?day=30">1 เดือน</a></li>
-            <li class="divider"></li>
-            <li><a href="?day=90">3 เดือน</a></li>
-            <li class="divider"></li>
-            <li><a href="?day=180">6 เดือน</a></li>
-            <li class="divider"></li>
-            <li><a href="?day=365">1 ปี</a></li>
-        </ul>
-    </div>
 
  <div style="float:right;" id="right_post" style="display: none;">
         <button onclick="postfacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">โพสบนเฟสบุ๊ค</span></button>
@@ -315,7 +297,7 @@
 </div>        
 </div>
 	<center><div class="loading_dialog"><p id="loading_txt">โหลดแล้ว 0 โพส</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></div></center>
-	<center><div class="canvas_dialog"><canvas id="stats-display"></canvas></div></center>
+	<center><div class="canvas_dialog" ><canvas id="stats-display"></canvas></div></center>
 	<center><div class="canvas_post" style="display: none;"><canvas id="stats-post"></canvas></div></center>
 </div>
 <div id="counterdiv"></div>
