@@ -58,7 +58,6 @@
 		var boundary = '----ThisIsTheBoundary1234567890';   
 		// let's encode our image file, which is contained in the var
 		var formData = '--' + boundary + '\r\n'
-		xhr.setRequestHeader('Content-type','text/html; charset=TIS-620');
 		formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
 		formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
 		for ( var i = 0; i < imageData.length; ++i ){
