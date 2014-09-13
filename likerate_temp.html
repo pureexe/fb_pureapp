@@ -83,7 +83,6 @@
 			}
 			if(EOF==true){
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post.length+" โพส");
-				//like_fetch();
 				console.log(JSON.stringify(post));
 			} else {
 				if(res.paging){
@@ -144,7 +143,7 @@
 
 </script>
 
-<div class="" id="login-display" style="display: none;">
+<div class="container" id="login-display" style="display: none;">
   <h1>อีกขั้นเดียว!</h1>
   <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ </p>
   <ul>
@@ -156,7 +155,7 @@
    <p><button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></p>
 </div>
 
-<div class="" id="app-display" style="display: none;">
+<div class="container" id="app-display" style="display: none;">
 <div class='row' style='margin-bottom:10px;'>
 <div  style="float:right;">
 <div class="fb-like" data-href="https://www.pureapp.in.th/toplike" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
