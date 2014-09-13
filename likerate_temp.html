@@ -70,15 +70,16 @@
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
 			res.forEach(function(p){
-				console.log("See day = "+day)
-				if(p.actor_id == user_id && $._DateDiff(p.created_time)<=day){
-					if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
-						daylist.push(parseInt(p.like_info.like_count));
-					}else{
-						daylist[daylist.length-1]+=parseInt(p.like_info.like_count);
+				if($._DateDiff(p.created_time)<=day){
+					if(p.actor_id == user_id){
+						if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
+							daylist.push(parseInt(p.like_info.like_count));
+						}else{
+							daylist[daylist.length-1]+=parseInt(p.like_info.like_count);
+						}
+						post_count++;
+						console.log($._DateDiff(p.created_time));
 					}
-					post_count++;
-					console.log($._DateDiff(p.created_time));
 				}else {
 					EOF = true;
 				}
