@@ -109,7 +109,7 @@
 			FB.api({
 				method: 'fql.query',
 				query: "SELECT created_time,like_info.like_count FROM stream WHERE source_id="+user_id+" LIMIT 50"
-			},countcallback);
+			},getpostcallback);
 
 		}
 		FB.getLoginStatus(function(response) {
