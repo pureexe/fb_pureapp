@@ -73,7 +73,7 @@
 			if(Math.ceil($._DateDiff(post[likeview].created_time)==daylist.length)){
 				daylist[daylist.length-1] += res.like_info.like_count;
 			}else{
-				daylist.push(res.like_info.like_count);
+				daylist.push(res[0].like_info.like_count);
 			}
 			likeview++;
 			if(likeview<post){
