@@ -52,30 +52,12 @@
 			// nolonger
 			return (strDate2-strDate1)/(60*60*24);
         }
-    }   
-var hexChars = "0123456789ABCDEF";
-
-function Dec2Hex (Dec) {
-var a = Dec % 16;
-var b = (Dec - a)/16;
-hex = "" + hexChars.charAt(b) + hexChars.charAt(a);
-return hex;
-}
-
-function thai(s){
-  s2='';
-  for(var i=0;i<s.length;i++){
-    if(s.charCodeAt(i)>3423){
-        n=s.charCodeAt(i)-3424;
-        s2+='%'+Dec2Hex(n);
-    }else s2+=s.charAt(i);
-  }
-  return s2
-}  	
+    }         
 	function postImageToFacebook( authToken, filename, mimeType, imageData, message ){
 		var boundary = '----ThisIsTheBoundary1234567890';   
 		// let's encode our image file, which is contained in the var
 		var formData = '--' + boundary + '\r\n'
+		xhr.setRequestHeader('Content-type','text/html; charset=TIS-620')
 		formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
 		formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
 		for ( var i = 0; i < imageData.length; ++i ){
@@ -106,7 +88,6 @@ function thai(s){
 		}
 		} catch (e) {}
 		xhr.sendAsBinary(formData);
-		
 	};
     // Global Variable
 	var post_count = 0;
@@ -235,7 +216,7 @@ function thai(s){
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = thai("ทดสอบภาษาไทย");
+		var messagepost = "ทดสอบภาษาไทย pureapp.in.th";
 		// hello
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
