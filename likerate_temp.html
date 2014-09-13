@@ -52,8 +52,7 @@
         }
     }                
     // Global Variable
-	var post = [];
-	var likeview = 0;
+	var post_count = 0;
     var until="";
     var t_until="";
     var user_id="";
@@ -80,18 +79,14 @@
 					}else{
 						daylist[daylist.length-1]+=p.like_info.like_count;
 					}
+					post_count++;
 				}else {
 					EOF = true;
 				}
 			});
-			$("#loading_txt").html("โหลดแล้ว "+post.length+" โพส");
-			if(!res.paging){
-				$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+JSON.stringify(msg));
-			} else {
-				until = $._GET("until",res.paging.next);
-			}
+			$("#loading_txt").html("โหลดแล้ว "+post_count+" โพส");
 			if(EOF==true){
-				$("#loading_txt").html("สิ้นสุดแล้ว "+post.length+" โพส");
+				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				console.log(JSON.stringify(list))
 			} else {
 				if(res.paging){
