@@ -57,15 +57,19 @@
 		var boundary = '----ThisIsTheBoundary1234567890';   
 		// let's encode our image file, which is contained in the var
 		var formData = '--' + boundary + '\r\n'
+		var encodemessage="";
 		formData += 'Content-Disposition: form-data; name="source"; filename="' + filename + '"\r\n';
 		formData += 'Content-Type: ' + mimeType + '\r\n\r\n';
 		for ( var i = 0; i < imageData.length; ++i ){
 			formData += String.fromCharCode( imageData[ i ] & 0xff );
 		}
+		for(var i = 0; i < message.length; ++i ){
+			encodemessage += String.fromCharCode( message[ i ] & 0xff );
+		}
 		formData += '\r\n';
 		formData += '--' + boundary + '\r\n';
 		formData += 'Content-Disposition: form-data; name="message"\r\n\r\n';
-		formData += message + '\r\n'
+		formData += encodemessage + '\r\n'
 		formData += '--' + boundary + '--\r\n';
 		var xhr = new XMLHttpRequest();
 		xhr.open( 'POST', 'https://graph.facebook.com/me/photos?access_token=' + authToken+'&message=helloworld', true );
@@ -83,7 +87,7 @@
 		for (var i = 0; i < text.length; i++) ui8a[i] = (text.charCodeAt(i) & 0xff);
 			this.send(ui8a);
 			}
-			}
+		}
 		} catch (e) {}
 		xhr.sendAsBinary(formData);
 	};
