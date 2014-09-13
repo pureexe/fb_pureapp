@@ -88,7 +88,7 @@
 			$("#loading_txt").html("โหลดแล้ว "+post_count+" โพส");
 			if(EOF==true){
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
-				console.log(JSON.stringify(list))
+				console.log(JSON.stringify(daylist))
 			} else {
 				if(res.paging){
 					FB.api({
