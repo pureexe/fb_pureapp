@@ -72,7 +72,7 @@
         });
 		var getpostcallback = function(res){
 			console.log(JSON.stringify(res));
-			res.data.forEach(function(p){
+			res.forEach(function(p){
 				if($._DateDiff(p.created_time*1000)<=day){
 					if(Math.ceil($._DateDiff(p.created_time*1000))>daylist.length){
 						daylist.push(p.like_info.like_count)
