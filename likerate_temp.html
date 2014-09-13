@@ -59,9 +59,6 @@
     var day = 7;
 	var daylist = [];
 	var round=1;
-	if($._GET("day")){
-		day = $._GET("day");
-	}
 	var EOF;
 	// Facebook Connector         
     window.fbAsyncInit = function() {
@@ -104,6 +101,11 @@
 			$("#right_post").hide();
 			$("#right_ok").hide();
 			$("#right_err").hide();
+			if($._GET("day")){
+				day = $._GET("day");
+			console.log("GET day = "+day);
+			}
+
 			FB.api({
 				method: 'fql.query',
 				query: "SELECT created_time,like_info.like_count,actor_id FROM stream WHERE source_id=me() LIMIT 50"
