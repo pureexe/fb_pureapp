@@ -76,6 +76,7 @@
 				daylist.push(res[0].like_info.like_count);
 			}
 			likeview++;
+			console.log("Data fetch = "+likeview);
 			if(likeview<post){
 				FB.api({
 					method: 'fql.query',
