@@ -93,8 +93,6 @@
 				var canvas = document.getElementById("stats-display")
 				canvas.width  = 600;
 				canvas.height = 300; 
-				//canvas.style.width  = '1000px';
-				//canvas.style.height = '200px';
 				daylist.reverse();
 				var chartdata = {
 					labels: ["6 วันก่อน", "5 วันก่อน", "4 วันก่อน", "3 วันก่อน", "2 วันก่อน", "วันก่อน", "วันนี้"],
@@ -111,6 +109,11 @@
 					}
 				]};
 				var myLineChart = new Chart(ctx).Line(chartdata);
+				canvas.width  = 400;
+				canvas.height = 200; 
+				canvas.style.width  = '400px';
+				canvas.style.height = '200px';
+				
 			} else {
 					round++;
 					FB.api({
