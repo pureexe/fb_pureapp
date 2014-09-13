@@ -56,6 +56,9 @@
     var t_until="";
     var user_id="";
     var day = 7;
+	if($._GET("day")){
+		day = $._GET("day");
+	}
 	var EOF;
 	// Facebook Connector         
     window.fbAsyncInit = function() {
@@ -79,7 +82,7 @@
 				until = $._GET("until",res.paging.next);
 			}
 			if(EOF==true){
-				//$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
+				$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
 				//like_fetch();
 				console.log(JSON.stringify(post));
 			} else {
