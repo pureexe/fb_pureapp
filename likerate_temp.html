@@ -110,10 +110,10 @@
 				if($._DateDiff(p.created_time)<=day){
 					if(p.actor_id == user_id){
 						if(Math.ceil($._DateDiff(p.created_time))>daylist.length){
-							daylist.push(parseInt(p.like_info.like_count));
-						}else{
-							daylist[daylist.length-1]+=parseInt(p.like_info.like_count);
+							while(Math.ceil($._DateDiff(p.created_time))>daylist.length)daylist.push(0);
 						}
+						daylist[daylist.length-1]+=parseInt(p.like_info.like_count);
+						
 						post_count++;
 						//console.log($._DateDiff(p.created_time));
 					}
