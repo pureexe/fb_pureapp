@@ -77,7 +77,7 @@
 			}
 			likeview++;
 			console.log("Data fetch = "+likeview);
-			if(likeview<post){
+			if(likeview<post.length){
 				FB.api({
 					method: 'fql.query',
 					query: "SELECT like_info.like_count  FROM stream WHERE post_id ='"+post[likeview].id+"'"
