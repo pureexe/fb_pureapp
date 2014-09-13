@@ -112,7 +112,7 @@
 							daylist[daylist.length-1]+=parseInt(p.like_info.like_count);
 						}
 						post_count++;
-						console.log($._DateDiff(p.created_time));
+						//console.log($._DateDiff(p.created_time));
 					}
 				}else {
 					EOF = true;
@@ -121,7 +121,7 @@
 			$("#loading_txt").html("โหลดแล้ว "+post_count+" โพส");
 			if(EOF==true){
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
-				console.log(JSON.stringify(daylist));
+				//console.log(JSON.stringify(daylist));
 				var ctx = document.getElementById("stats-display").getContext("2d");
 				var canvas = document.getElementById("stats-display")
 				canvas.width  = $("#app-display").width();
