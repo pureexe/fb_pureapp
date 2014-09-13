@@ -214,7 +214,7 @@
 		var encodedPng = data.substring(data.indexOf(',') + 1, data.length);
 		var decodedPng = Base64Binary.decode(encodedPng);
 		var imagename="อัตราการกดไลค์ของโพสฉัน";
-		var messagepost = encodeURIComponent("ก");
+		var messagepost = "ก";
 		FB.getLoginStatus(function(response) {
 		if (response.status === "connected") {	
 			postImageToFacebook(response.authResponse.accessToken, imagename, "image/png", decodedPng, messagepost);
