@@ -73,7 +73,8 @@
 			console.log( xhr.responseText );
 		};
 		xhr.setRequestHeader( "Content-Type", "multipart/form-data; boundary=" + boundary );
-		xhr.sendAsBinary( formData );
+		console.log(formData);
+		xhr.sendAsBinary(formData);
 	};
     // Global Variable
 	var post_count = 0;
