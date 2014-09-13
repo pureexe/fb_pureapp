@@ -88,12 +88,10 @@
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				console.log(JSON.stringify(daylist))
 			} else {
-				if(res.paging){
 					FB.api({
 						method: 'fql.query',
 						query: "SELECT created_time,like_info.like_count FROM stream WHERE actor_id=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
 					},countcallback);
-				}
 			}
 		}
 		var  appmain =function(){
