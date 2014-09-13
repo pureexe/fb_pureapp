@@ -58,7 +58,7 @@
     var user_id="";
     var day = 7;
 	var daylist = [];
-	var round=1;
+	var round=0;
 	var EOF;
 	// Facebook Connector         
     window.fbAsyncInit = function() {
@@ -89,6 +89,7 @@
 				$("#loading_txt").html("สิ้นสุดแล้ว "+post_count+" โพส");
 				console.log(JSON.stringify(daylist))
 			} else {
+					round++;
 					FB.api({
 						method: 'fql.query',
 						query: "SELECT created_time,like_info.like_count,actor_id FROM stream WHERE source_id=me() LIMIT "+((50*round)+1)+","+(50*(round+1))+""
