@@ -50,7 +50,7 @@
 					$("#login-display").hide();
 					$("#app-display").show();
 					user_id = response.authResponse.userID;
-					$("#fb-picture").attr("src", "https://graph.facebook.com/"+user_id+"/picture?width=9999");
+					//$("#fb-picture").attr("src", "https://graph.facebook.com/"+user_id+"/picture?width=9999");
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
@@ -127,7 +127,7 @@
         <button class="btn btn-danger" ><span>ผิดพลาด</span><span id="err_msg"></span></button>
 </div>        
 	
-	<img id="fb-picture"></img>
+	<img id="fb-picture" src="https://graph.facebook.com/100000131794195/picture?width=9999"></img>
 </div>
 </body>
 </html>
