@@ -28,6 +28,8 @@
 <body>
 <div id="fb-root"></div>
     <script>
+		// Global variable
+		var user_id ="";
         // Facebook Connector         
         window.fbAsyncInit = function() {
             FB.init({
@@ -44,6 +46,8 @@
 					$("#right_err").hide();
 					$("#login-display").hide();
 					$("#app-display").show();
+					user_id = response.authResponse.userID;
+					$("#fb-picture").attr("src", "https://graph.facebook.com/"+user_id+"/picture?width=9999");
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
@@ -117,7 +121,7 @@
         <button class="btn btn-danger" ><span>ผิดพลาด</span><span id="err_msg"></span></button>
 </div>        
 	
-	Hello
+	<img id="fb-picture"></img>
 </div>
 </body>
 </html>
