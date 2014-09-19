@@ -27,6 +27,9 @@
 </head>
 <body>
 <div id="fb-root"></div>
+	<script src="//fb.pureapp.in.th/js/facedetection/ccv.js"></script>
+	<script src="//fb.pureapp.in.th/js/facedetection/face.js"></script>
+	<script src="//fb.pureapp.in.th/js/jquery.facedetection.js"></script>
     <script>
 		// Global variable
 		var user_id ="";
@@ -69,7 +72,10 @@
 			window.location.reload();
 		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox,read_stream
 	}
-
+	$(document).ready(function() {
+		 var coords = $('#fb-picture').faceDetection();
+        console.log(JSON.stringify(coords));
+	});
 
 </script>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
