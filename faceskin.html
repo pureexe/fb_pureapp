@@ -39,8 +39,11 @@
 			}
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
+					$("#right_post").hide();
+					$("#right_ok").hide();
+					$("#right_err").hide();
 					$("#login-display").hide();
-					$("#app-display").show();
+					$("#login-display").hide();
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
