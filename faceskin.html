@@ -75,10 +75,10 @@
 	$(document).ready(function() {
 		 var coords = $('#fb-picture').faceDetection({
 				complete:function() {
-					$this.text('Done!');
+					$(this).text('Done!');
 				},
 				error:function(img, code, message) {
-					$this.text('error!');
+					$(this).text('error!');
 					alert('Error: '+message);
 				}
 			});
