@@ -78,8 +78,9 @@
 					$(this).text('Done!');
 				},
 				error:function(img, code, message) {
-					$(this).text('error!');
-					alert('Error: '+message);
+					console.log("err "+message);
+					//$(this).text('error!');
+					//alert('Error: '+message);
 				}
 			});
         console.log(JSON.stringify(coords));
