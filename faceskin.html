@@ -73,7 +73,15 @@
 		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox,read_stream
 	}
 	$(document).ready(function() {
-		 var coords = $('#fb-picture').faceDetection();
+		 var coords = $('#fb-picture').faceDetection({
+				complete:function() {
+					$this.text('Done!');
+				},
+				error:function(img, code, message) {
+					$this.text('error!');
+					alert('Error: '+message);
+				}
+			});
         console.log(JSON.stringify(coords));
 	});
 
