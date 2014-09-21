@@ -103,12 +103,14 @@
 									label: "ชาย"
 								}
 						];
+						/*
 							if($("#app-display").width()<$("#app-display").height()){
 								$("#ratio-display").width($("#app-display").width()).height($("#app-display").width());
 							}
 							if($("#app-display").width()>$("#app-display").height()){
 								$("#ratio-display").width($("#app-display").height()).height($("#app-display").height());
 							}
+							*/
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
 						
@@ -185,7 +187,7 @@
 
 <div class="container" id="app-display" style="display: none;">
 	<center><div id="load_sign"><i class="fa fa-refresh fa-spin fa-2x"></i></div></center>
-	<center><div id="result"><canvas id="ratio-display"></canvas></div></center>
+	<center><div id="result"><canvas id="ratio-display" height="800px" width="800px"></canvas></div></center>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="height: 50px;">
