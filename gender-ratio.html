@@ -75,7 +75,7 @@
 						male_p = male_p/100;
 						female_p = female_p/100;
 						$("#result").show();
-						var data = [
+						var chartdata = [
 								{
 									value: female_p,
 									color:"#F7464A",
@@ -90,7 +90,7 @@
 								}
 						];
 						var ctx = document.getElementById("ratio-display").getContext("2d");
-						var myPieChart = new Chart(ctx).Pie(data,options);
+						var myPieChart = new Chart(ctx).Pie(chartdata);
 						
 					}
 				);
