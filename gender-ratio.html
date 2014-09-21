@@ -106,7 +106,8 @@
 						var canvas = document.getElementById("ratio-display");
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
-						
+						$("#male_data").html(male_p+"%");
+						$("#female_data").html(female_p+"%");
 					}
 				);
 			};
@@ -185,8 +186,8 @@
 			<div class="col-sm-6">
 				<table class="table table-hover" id="like_table">
 					<thead><tr><th>เพศ</th><th>ร้อยละ</th></tr></thead>
-					<tr><td><i class="fa fa-male" style="color:#46BFBD;"></i> ชาย</td><td></td></tr>
-					<tr><td><i class="fa fa-female" style="color:#F7464A;"></i> หญิง</td><td></td></tr>
+					<tr><td><i class="fa fa-male" style="color:#46BFBD;"></i> ชาย</td><td><span id="male_data"></span></td></tr>
+					<tr><td><i class="fa fa-female" style="color:#F7464A;"></i> หญิง</td><td><span id="female_data"></span></td></tr>
 				</table>
 			</div>
 			<div class="col-sm-6">
