@@ -28,6 +28,7 @@
 </head>
 <body>
 <div id="fb-root"></div>
+	<script src="http://fb.pureapp.in.th/js/Chart.min.js"></script>
     <script>
         // Utility Function         
         $_GET = function(name, url) {
@@ -62,7 +63,6 @@
 						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
 					},
 					function(res) {
-						console.log(JSON.stringify(res));
 						res.forEach(function(p){
 							if(p.sex=="male"){
 								male++;
@@ -74,7 +74,22 @@
 						female_p = Math.round((female/res.length)*10000);
 						male_p = male_p/100;
 						female_p = female_p/100;
-						console.log("male = "+male_p+"\nfemale = "+female_p);
+						$("#result").show();
+						var data = [
+								{
+									value: female_p,
+									color:"#F7464A",
+									highlight: "#FF5A5E",
+									label: "หญิง"
+								},
+								{
+									value: male_p,
+									color: "#46BFBD",
+									highlight: "#5AD3D1",
+									label: "ชาย"
+								}
+						];
+						
 					}
 				);
 			};
