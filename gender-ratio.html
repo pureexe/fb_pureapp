@@ -71,6 +71,8 @@
 			var appmain = function(){
 				$("#load_sign").show();
 				$("#result").hide();
+				$("#right_post").hide();
+				$("#right_ok").hide();
 				FB.api({
 						method: 'fql.query',
 						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
@@ -108,6 +110,8 @@
 						var myPieChart = new Chart(ctx).Pie(chartdata);
 						$("#male_data").html(male_p+" %");
 						$("#female_data").html(female_p+" %");
+						$("#right_load").hide();
+						$("#right_post").show();
 					}
 				);
 			};
@@ -180,6 +184,17 @@
 </div>
 
 <div class="container" id="app-display" style="display: none;">
+	<div  class="fb-like" data-action="like" data-href="http://www.pureapp.in.th/likerate" data-layout="button_count" data-share="true" data-show-faces="true" style="float: right;margin-bottom:10px;">
+</div>
+<div style='margin-bottom:10px;' id="right_post" style="display: none;">
+<button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
+</div>
+<div style='margin-bottom:10px;' id="right_load" style="display: none;">
+<button class="btn btn-warning" style="background-color: #f0ad4e;"><i class="fa fa-circle-o-notch fa-spin"></i> กำลังโหลด</button>
+</div>
+<div style='margin-bottom:10px;' id="right_ok" style="display: none;">
+<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
+</div>
 	<center><div id="load_sign"><i class="fa fa-refresh fa-spin fa-2x"></i></div></center>
 	<center><div id="result">
 		<div class="row">
