@@ -1,0 +1,128 @@
+<!-- GPLv3 @2014 - Pakkapon Phongthawee -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>อัตราส่วนเพศของเพื่อนฉัน : pure's app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54361036-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+    <style>
+        body { padding-top: 70px;
+                padding-bottom: 70px;
+        }
+    </style>
+</head>
+<body>
+<div id="fb-root"></div>
+    <script>
+        // Facebook Connector         
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '351070565012663', // pure's app id
+                xfbml      : true,
+                  version    : 'v2.0'
+            });
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+					$("#app-display").show();
+					$("#login-display").hide();
+                } else{
+					console.log("Not logged in");
+					$("#app-display").hide();
+					$("#login-display").show();
+				}
+            })
+        };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/th_TH/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    var gotop = function(){
+        $(function() {
+		$('body,html').stop(true,true).animate({scrollTop: 0}, 1000);
+        });
+    }
+    var postfacebook = function() {
+		
+    }
+	var logintofacebook = function(){
+		FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox
+	}
+
+</script>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.pureapp.in.th">อัตราส่วนเพศของเพื่อนฉัน</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://www.pureapp.in.th">หน้าแรก</a></li>
+        <li><a href="https://www.facebook.com/appmadebypure">แฟนเพจ</a></li>
+        <li><a><div class="fb-like" data-href="http://www.pureapp.in.th/toplike" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container" id="login-display" style="display: none;">
+<div class="jumbotron">
+  <h1>อีกขั้นเดียว!</h1>
+  <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ </p>
+  <ul>
+	<li>โพสข้อความของคุณ - ทุกแอปพลิเคชันของเราต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณเพื่อให้สามารถใช้การปุ่มโพสไปยังเฟสบุ๊คได้</li>
+	<li>เข้าถึงเพื่อนของคุณ - แอปคอัตราส่วนเพศของเพื่อนฉันต้องการเข้าถึงเพื่อนของคุณเพื่อใช้ในการระบุเพศของเพื่อนของคุณ</li>
+ </ul> 
+  <p>ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) </p>
+	  <p><button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></p>
+</div>
+</div>
+
+<div class="container" id="app-display" style="display: none;">
+	<center><div><i class="fa fa-refresh fa-spin"></i></div></center>
+	<div></div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="height: 50px;">
+  <div class="container">
+ <div class="">
+    <ul class="nav navbar-nav">
+     <li><a class="" href="#">พื้นที่ว่างสำหรับติดโฆษณา</a></li>
+     </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://www.facebook.com/appmadebypure">since 2014 : pure's app</a></li>
+        <li><a href="javascript:gotop()">กลับไปบนสุด</a></li>
+				<li><script type="text/javascript" language="javascript1.1" src="http://tracker.stats.in.th/tracker.php?sid=60304"></script><noscript><a target="_blank" href="http://www.stats.in.th/">www.Stats.in.th</a></noscript></li>
+      </ul>
+    </div> 
+  </div>
+</nav>
+</body>
+</html>
