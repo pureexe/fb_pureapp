@@ -44,7 +44,7 @@
 						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
 					},
 					function(res) {
-						console.log(JSON.stringify(res));
+						console.log(res.length);
 					}
 				);
 			};
