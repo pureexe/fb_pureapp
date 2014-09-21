@@ -141,11 +141,11 @@
     }
     var postfacebook = function() {
 		$("#right_post").hide();
-		$("#right_load").show();
+		$("#right_postload").show();
             var txt_postmsg = 'บนเฟสบุ๊คฉันมีเพื่อนเป็นเพศชาย '+male_p+' % และมีเพื่อนเป็นเพศหญิง '+female_p+'%';
             txt_postmsg+='\nอยากรู้อัตราส่วนเพศของเพื่อนคุณ เข้ามาที่ pureapp.in.th/gender-ratio #pureapp';
             FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
-						$("#right_load").hide();
+						$("#right_postload").hide();
 						if(!res.error_code){
 							$("#right_ok").show();
 						} else {
@@ -209,6 +209,9 @@
 				<center>
 <div style='margin-bottom:20px;' id="right_post" style="display: none;">
 <button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
+</div>
+<div style='margin-bottom:20px;' id="right_postload" style="display: none;">
+<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-refresh fa-spin"></i> กำลังโพส</button>
 </div>
 <div style='margin-bottom:20px;' id="right_ok" style="display: none;">
 <button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
