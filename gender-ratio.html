@@ -74,6 +74,7 @@
 						female_p = Math.round((female/res.length)*10000);
 						male_p = male_p/100;
 						female_p = female_p/100;
+						$("#load_sign").show();
 						$("#result").show();
 						var chartdata = [
 								{
@@ -89,6 +90,12 @@
 									label: "ชาย"
 								}
 						];
+						if($("#app-display").width()<$("#app-display").height()){
+							 $("#ratio-display").width($("#app-display").width()).height($("#app-display").width());
+						}
+						if($("#app-display").width()>$("#app-display").height()){
+							 $("#ratio-display").width($("#app-display").height()).height($("#app-display").height());
+						}
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
 						
