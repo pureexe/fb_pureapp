@@ -133,7 +133,7 @@
 	var logintofacebook = function(){
 		FB.login(function(){
 			window.location.reload();
-		},{scope: 'publish_actions,publish_stream'}) // no longer ,read_mailbox
+		},{scope: 'publish_actions,publish_stream,user_friends'}) // no longer ,read_mailbox
 	}
 
 </script>
