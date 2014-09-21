@@ -62,7 +62,7 @@
 						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
 					},
 					function(res) {
-						res.forEach(function(p){
+						res.data.forEach(function(p){
 							if(p.sex=="male"){
 								male++;
 							} else if(p.sex=="female"){
