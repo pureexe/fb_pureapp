@@ -90,11 +90,15 @@
 									label: "ชาย"
 								}
 						];
-						if($("#app-display").width()<$("#app-display").height()){
-							 $("#ratio-display").width($("#app-display").width()).height($("#app-display").width());
-						}
-						if($("#app-display").width()>$("#app-display").height()){
-							 $("#ratio-display").width($("#app-display").height()).height($("#app-display").height());
+						if($("#app-display").width()<400||$("#app-display").heigth()<400){
+							if($("#app-display").width()<$("#app-display").height()){
+								$("#ratio-display").width($("#app-display").width()).height($("#app-display").width());
+							}
+							if($("#app-display").width()>$("#app-display").height()){
+								$("#ratio-display").width($("#app-display").height()).height($("#app-display").height());
+							}
+						} else {
+									$("#ratio-display").width(400).height(400);
 						}
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
