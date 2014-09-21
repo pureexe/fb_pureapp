@@ -140,7 +140,18 @@
         });
     }
     var postfacebook = function() {
-		// wait for defind
+		$("#right_post").hide();
+		$("#right_load").show();
+            var txt_postmsg = 'บนเฟสบุ๊คฉันมีเพื่อนเป็นเพศชาย '+male_p+' % และมีเพื่อนเป็นเพศหญิง '+female_p+'%';
+            txt_postmsg+='\nอยากรู้อัตราส่วนเพศของเพื่อนคุณ เข้ามาที่ pureapp.in.th/gender-ratio #pureapp';
+            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+						$("#right_load").hide();
+						if(!res.error_code){
+							$("#right_ok").show();
+						} else {
+							alert("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ "+JSON.stringify(res));
+						}
+	    	});
     }
 	var logintofacebook = function(){
 		FB.login(function(){
