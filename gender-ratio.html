@@ -30,30 +30,6 @@
 <div id="fb-root"></div>
 	<script src="http://fb.pureapp.in.th/js/Chart.min.js"></script>
     <script>
-        // Utility Function         
-        function findBootstrapEnvironment() {
-			var envs = ['xs', 'sm', 'md', 'lg'];
-			$el = $('<div>');
-			$el.appendTo($('body'));
-			for (var i = envs.length - 1; i >= 0; i--) {
-				var env = envs[i];
-				$el.addClass('hidden-'+env);
-				if ($el.is(':hidden')) {
-					$el.remove();
-					return env;
-				}
-			};
-		}
-		$_GET = function(name, url) {
-            if (!url) {
-                url = window.location.href;
-            }
-            var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
-            if (!results) { 
-                return 0; 
-            }
-            return results[1] || 0;
-        }
 		// Global variable 
 		var male = 0;
 		var female = 0;
@@ -207,16 +183,16 @@
 					<tr><td><i class="fa fa-female" style="color:#F7464A;"></i> หญิง</td><td><span id="female_data"></span></td></tr>
 				</table>
 				<center>
-<div style='margin-bottom:20px;' id="right_post" style="display: none;">
-<button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
-</div>
-<div style='margin-bottom:20px;' id="right_postload" style="display: none;">
-<button class="btn btn-warning"><i class="fa fa-refresh fa-spin"></i> กำลังโพส</button>
-</div>
-<div style='margin-bottom:20px;' id="right_ok" style="display: none;">
-<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
-</div>
-</center>
+					<div style='margin-bottom:20px;' id="right_post" style="display: none;">
+						<button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
+					</div>
+					<div style='margin-bottom:20px;' id="right_postload" style="display: none;">
+						<button class="btn btn-warning"><i class="fa fa-refresh fa-spin"></i> กำลังโพส</button>
+					</div>
+					<div style='margin-bottom:20px;' id="right_ok" style="display: none;">
+						<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
+					</div>
+				</center>
 			</div>
 			<div class="col-sm-6">
 				<canvas id="ratio-display" height="200px" width="200px"></canvas>
