@@ -29,8 +29,26 @@
 <body>
 <div id="fb-root"></div>
     <script>
-        // Facebook Connector         
-        window.fbAsyncInit = function() {
+        // Utility Function         
+        $_GET = function(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(url);
+            if (!results) { 
+                return 0; 
+            }
+            return results[1] || 0;
+        }
+		// Global variable 
+		var male = 0;
+		var female = 0;
+		var male_p;
+		var female_p;
+		var access_able = 0;
+		var all_friend = 0;
+		// Facebook Connector
+		window.fbAsyncInit = function() {
             FB.init({
                 appId   : '351070565012663', // pure's app id
                 xfbml      : true,
@@ -44,7 +62,18 @@
 						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
 					},
 					function(res) {
-						console.log(res.length);
+						res.forEach(function(p){
+							if(p.sex=="male"){
+								male++;
+							} else if(p.sex=="female"){
+								female++;
+							}
+						});
+						male_p = Math.round((male/res.data.length)*10000);
+						female_p = Math.round((female/res.data.length)*10000);
+						male_p = male_p/100;
+						female_p = female_p/100;
+						console.log("male = "+male_p+"\nfemale = "+female_p);
 					}
 				);
 			};
