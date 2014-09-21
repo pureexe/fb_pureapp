@@ -34,12 +34,25 @@
             FB.init({
                 appId   : '351070565012663', // pure's app id
                 xfbml      : true,
-                  version    : 'v2.0'
+                version    : 'v2.0'
             });
+			var appmain = function(){
+				$("#load_sign").show();
+				$("#result").hide();
+				FB.api({
+						method: 'fql.query',
+						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
+					},
+					function(res) {
+						console.log(JSON.stringify(res));
+					}
+				);
+			};
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
 					$("#app-display").show();
 					$("#login-display").hide();
+					appmain();
                 } else{
 					console.log("Not logged in");
 					$("#app-display").hide();
@@ -104,8 +117,8 @@
 </div>
 
 <div class="container" id="app-display" style="display: none;">
-	<center><div><i class="fa fa-refresh fa-spin fa-2x"></i></div></center>
-	<div></div>
+	<center><div id="load_sign"><i class="fa fa-refresh fa-spin fa-2x"></i></div></center>
+	<div id="result"><canvas id="ratio-display"></canvas></div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="height: 50px;">
