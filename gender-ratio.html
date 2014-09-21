@@ -106,8 +106,8 @@
 						var canvas = document.getElementById("ratio-display");
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
-						$("#male_data").html(male_p+"%");
-						$("#female_data").html(female_p+"%");
+						$("#male_data").html(male_p+" %");
+						$("#female_data").html(female_p+" %");
 					}
 				);
 			};
@@ -191,7 +191,7 @@
 				</table>
 			</div>
 			<div class="col-sm-6">
-				<canvas id="ratio-display"></canvas>
+				<canvas id="ratio-display" height="200px" width="200px"></canvas>
 			</div>
 		</div>
 	</div></center>
