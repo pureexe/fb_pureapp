@@ -31,7 +31,20 @@
 	<script src="http://fb.pureapp.in.th/js/Chart.min.js"></script>
     <script>
         // Utility Function         
-        $_GET = function(name, url) {
+        function findBootstrapEnvironment() {
+			var envs = ['xs', 'sm', 'md', 'lg'];
+			$el = $('<div>');
+			$el.appendTo($('body'));
+			for (var i = envs.length - 1; i >= 0; i--) {
+				var env = envs[i];
+				$el.addClass('hidden-'+env);
+				if ($el.is(':hidden')) {
+					$el.remove();
+					return env;
+				}
+			};
+		}
+		$_GET = function(name, url) {
             if (!url) {
                 url = window.location.href;
             }
@@ -90,16 +103,12 @@
 									label: "ชาย"
 								}
 						];
-						if($("#app-display").width()<400||$("#app-display").height()<400){
 							if($("#app-display").width()<$("#app-display").height()){
 								$("#ratio-display").width($("#app-display").width()).height($("#app-display").width());
 							}
 							if($("#app-display").width()>$("#app-display").height()){
 								$("#ratio-display").width($("#app-display").height()).height($("#app-display").height());
 							}
-						} else {
-									$("#ratio-display").width(400).height(400);
-						}
 						var ctx = document.getElementById("ratio-display").getContext("2d");
 						var myPieChart = new Chart(ctx).Pie(chartdata);
 						
