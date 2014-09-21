@@ -89,6 +89,8 @@
 									label: "ชาย"
 								}
 						];
+						var ctx = document.getElementById("ratio-display").getContext("2d");
+						var myPieChart = new Chart(ctx).Pie(data,options);
 						
 					}
 				);
