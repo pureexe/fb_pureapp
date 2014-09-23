@@ -1,0 +1,222 @@
+<!-- GPLv3 @2014 - Pakkapon Phongthawee -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>อัตราส่วนเพศของเพื่อนฉัน : pure's app</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54361036-1', 'auto');
+  ga('require', 'displayfeatures');
+  ga('send', 'pageview');
+
+</script>
+    <style>
+        body { padding-top: 70px;
+                padding-bottom: 70px;
+        }
+    </style>
+</head>
+<body>
+<div id="fb-root"></div>
+	<script src="http://fb.pureapp.in.th/js/Chart.min.js"></script>
+    <script>
+		// Global variable 
+		var male = 0;
+		var female = 0;
+		var male_p;
+		var female_p;
+		var access_able = 0;
+		var all_friend = 0;
+		// Facebook Connector
+		window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '351070565012663', // pure's app id
+                xfbml      : true,
+                version    : 'v2.0'
+            });
+			var appmain = function(){
+				$("#load_sign").show();
+				$("#right_postload").hide();
+				$("#result").hide();
+				$("#right_post").hide();
+				$("#right_ok").hide();
+				FB.api({
+						method: 'fql.query',
+						query: 'SELECT sex FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me())'
+					},
+					function(res) {
+						res.forEach(function(p){
+							if(p.sex=="male"){
+								male++;
+							} else if(p.sex=="female"){
+								female++;
+							}
+						});
+						male_p = Math.round((male/res.length)*10000);
+						female_p = Math.round((female/res.length)*10000);
+						male_p = male_p/100;
+						female_p = female_p/100;
+						$("#load_sign").hide();
+						$("#result").show();
+						var chartdata = [
+								{
+									value: female_p,
+									color:"#F7464A",
+									highlight: "#FF5A5E",
+									label: "หญิง"
+								},
+								{
+									value: male_p,
+									color: "#46BFBD",
+									highlight: "#5AD3D1",
+									label: "ชาย"
+								}
+						];
+						var canvas = document.getElementById("ratio-display");
+						var ctx = document.getElementById("ratio-display").getContext("2d");
+						var myPieChart = new Chart(ctx).Pie(chartdata);
+						$("#male_data").html(male_p+" %");
+						$("#female_data").html(female_p+" %");
+						$("#right_post").show();
+					}
+				);
+			};
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+					$("#app-display").show();
+					$("#login-display").hide();
+					appmain();
+                } else{
+					console.log("Not logged in");
+					$("#app-display").hide();
+					$("#login-display").show();
+				}
+            })
+        };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/th_TH/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    var gotop = function(){
+        $(function() {
+		$('body,html').stop(true,true).animate({scrollTop: 0}, 1000);
+        });
+    }
+    var postfacebook = function() {
+		$("#right_post").hide();
+		$("#right_postload").show();
+            var txt_postmsg = 'บนเฟสบุ๊คฉันมีเพื่อนเป็นเพศชาย '+male_p+'% และมีเพื่อนเป็นเพศหญิง '+female_p+'%';
+            txt_postmsg+='\nอยากรู้อัตราส่วนเพศของเพื่อนคุณ เข้ามาที่ pureapp.in.th/gender-ratio #pureapp';
+            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+						$("#right_postload").hide();
+						if(!res.error_code){
+							$("#right_ok").show();
+						} else {
+							alert("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ "+JSON.stringify(res));
+						}
+	    	});
+    }
+	var logintofacebook = function(){
+		FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream,user_friends'}) // no longer ,read_mailbox
+	}
+
+</script>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://www.pureapp.in.th">เพศเพื่อนฉัน</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://www.pureapp.in.th">หน้าแรก</a></li>
+        <li><a href="https://www.facebook.com/appmadebypure">แฟนเพจ</a></li>
+        <li><a><div class="fb-like" data-href="http://www.pureapp.in.th/toplike" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container" id="login-display" style="display: none;">
+<div class="jumbotron">
+  <h1>อีกขั้นเดียว!</h1>
+  <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ </p>
+  <ul>
+	<li>โพสข้อความของคุณ - ทุกแอปพลิเคชันของเราต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณเพื่อให้สามารถใช้การปุ่มโพสไปยังเฟสบุ๊คได้</li>
+	<li>เข้าถึงเพื่อนของคุณ - แอปคอัตราส่วนเพศของเพื่อนฉันต้องการเข้าถึงเพื่อนของคุณเพื่อใช้ในการระบุเพศของเพื่อนของคุณ</li>
+ </ul> 
+  <p>ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) </p>
+	  <p><button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></p>
+</div>
+</div>
+
+<div class="container" id="app-display" style="display: none;">
+	<div style="margin-bottom:10px;"><div  class="fb-like" data-action="like" data-href="http://www.pureapp.in.th/gender-ratio" data-layout="button_count" data-share="true" data-show-faces="true" style="float: right;"></div></div>
+	<div>
+	<center><div id="load_sign"><i class="fa fa-refresh fa-spin fa-2x"></i></div></center>
+	<center><div id="result">
+		<div class="row">
+			<div class="col-sm-6">
+				<table class="table table-hover" id="like_table">
+					<thead><tr><th>เพศ</th><th>ร้อยละ</th></tr></thead>
+					<tr><td><i class="fa fa-male" style="color:#46BFBD;"></i> ชาย</td><td><span id="male_data"></span></td></tr>
+					<tr><td><i class="fa fa-female" style="color:#F7464A;"></i> หญิง</td><td><span id="female_data"></span></td></tr>
+				</table>
+				<center>
+					<div style='margin-bottom:20px;' id="right_post" style="display: none;">
+						<button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
+					</div>
+					<div style='margin-bottom:20px;' id="right_postload" style="display: none;">
+						<button class="btn btn-warning"><i class="fa fa-refresh fa-spin"></i> กำลังโพส</button>
+					</div>
+					<div style='margin-bottom:20px;' id="right_ok" style="display: none;">
+						<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
+					</div>
+				</center>
+			</div>
+			<div class="col-sm-6">
+				<canvas id="ratio-display" height="200px" width="200px"></canvas>
+			</div>
+		</div>
+	</div></center>
+</div>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="height: 50px;">
+  <div class="container">
+ <div class="">
+    <ul class="nav navbar-nav">
+     <li><a class="" href="#">พื้นที่ว่างสำหรับติดโฆษณา</a></li>
+     </ul>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://www.facebook.com/appmadebypure">since 2014 : pure's app</a></li>
+        <li><a href="javascript:gotop()">กลับไปบนสุด</a></li>
+				<li><script type="text/javascript" language="javascript1.1" src="http://tracker.stats.in.th/tracker.php?sid=60304"></script><noscript><a target="_blank" href="http://www.stats.in.th/">www.Stats.in.th</a></noscript></li>
+      </ul>
+    </div> 
+  </div>
+</nav>
+</body>
+</html>
