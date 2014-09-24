@@ -1,0 +1,129 @@
+<div id="fb-root">
+</div>
+    <script>
+	// Global variable
+	var post_cnt=0;
+	// Facebook Connector
+	window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '351070565012663', // pure's app id
+                xfbml      : true,
+                version    : 'v2.0'
+            });
+   var appcallback =function (res){
+		post_cnt+=res.length;
+		console.log(post_cnt);
+		$("#load_num").html("โหลดแล้ว "+post_cnt+" โพส");
+		if(res.length!=0){
+			FB.api({
+				method: 'fql.query',
+				query: 'SELECT status_id FROM status WHERE uid=me() LIMIT '+(post_cnt+1)+','+(post_cnt+100)+''
+			},appcallback);
+		} else {
+			    $("#load_sign").hide();
+				$("#result").show();
+				$("#result-display").html(post_cnt);
+				$("#right_post").show();
+		}
+   };
+   var appmain = function(){
+    $("#load_sign").show();
+    $("#right_postload").hide();
+    $("#result").hide();
+    $("#right_post").hide();
+    $("#right_ok").hide();
+    FB.api({
+		method: 'fql.query',
+		query: 'SELECT status_id FROM status WHERE uid=me() LIMIT 0,100'
+    },appcallback);
+   };
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+			FB.api("/me/permissions",function(perm){
+				var canread = false;
+				perm.data.forEach(function(a){
+					if(a.permission == 'read_stream'){
+						canread = true;
+					}
+				});
+				if(canread){
+					$("#app-display").show();
+					$("#login-display").hide();
+					appmain();
+				} else {
+					$("#app-display").hide();
+					$("#login-display").show();
+				}
+			});
+        } else{
+			$("#app-display").hide();
+			$("#login-display").show();
+		}
+    })
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/th_TH/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    var postfacebook = function() {
+		$("#right_post").hide();
+		$("#right_postload").show();
+            var txt_postmsg = '\u0E1A\u0E19\u0E40\u0E1F\u0E2A\u0E1A\u0E38\u0E4A\u0E04\u0E09\u0E31\u0E19\u0E21\u0E35\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E19\u0E40\u0E1B\u0E47\u0E19\u0E40\u0E1E\u0E28\u0E0A\u0E32\u0E22 '+male_p+'% \u0E41\u0E25\u0E30\u0E21\u0E35\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E19\u0E40\u0E1B\u0E47\u0E19\u0E40\u0E1E\u0E28\u0E2B\u0E0D\u0E34\u0E07 '+female_p+'%';
+            txt_postmsg+='\n\u0E2D\u0E22\u0E32\u0E01\u0E23\u0E39\u0E49\u0E2D\u0E31\u0E15\u0E23\u0E32\u0E2A\u0E48\u0E27\u0E19\u0E40\u0E1E\u0E28\u0E02\u0E2D\u0E07\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E19\u0E04\u0E38\u0E13 \u0E40\u0E02\u0E49\u0E32\u0E21\u0E32\u0E17\u0E35\u0E48 pureapp.in.th/gender-ratio #pureapp';
+            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+				$("#right_postload").hide();
+				if(!res.error_code){
+					$("#right_ok").show();
+				} else {
+					alert("\u0E01\u0E23\u0E38\u0E13\u0E32\u0E41\u0E04\u0E1B\u0E2B\u0E19\u0E49\u0E32\u0E08\u0E2D\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21\u0E1C\u0E34\u0E14\u0E1E\u0E25\u0E32\u0E14\u0E17\u0E35\u0E48\u0E40\u0E01\u0E34\u0E14\u0E02\u0E36\u0E49\u0E19\u0E2A\u0E48\u0E07\u0E21\u0E32\u0E17\u0E35\u0E48\u0E41\u0E1F\u0E19\u0E40\u0E1E\u0E08 "+JSON.stringify(res));
+				}
+			});
+	}
+	var logintofacebook = function(){
+		FB.login(function(){
+			window.location.reload();
+		},{scope: 'publish_actions,publish_stream,read_stream'}) // no longer ,read_mailbox
+	}
+
+</script>
+
+<div class="" id="login-display" style="display: none;">
+<div class="">
+<h2>
+อีกขั้นเดียว!</h2>
+เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ <br />
+<ul>
+<li>โพสข้อความของคุณ - ทุกแอปพลิเคชันของเราต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณเพื่อให้สามารถใช้การปุ่มโพสไปยังเฟสบุ๊คได้</li>
+<li>เข้าถึงเพื่อนของคุณ - แอปคอัตราส่วนเพศของเพื่อนฉันต้องการเข้าถึงเพื่อนของคุณเพื่อใช้ในการระบุเพศของเพื่อนของคุณ</li>
+</ul>
+ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) <br />
+<button class="btn btn-primary" id="postfacebtn" onclick="logintofacebook()"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></div>
+</div>
+<div class="" id="app-display" style="display: none;">
+	<div class="row" style="margin-bottom:10px;"><div class="fb-like" data-action="like" data-href="http://www.pureapp.in.th/status-post" data-layout="button_count" data-share="true" data-show-faces="true"></div></div>
+	<div class="row">
+			<center>
+				<div id="load_sign">
+					<span id="load_num">โหลดแล้ว 0 โพส</span>
+					<br>
+					<i class="fa fa-refresh fa-spin fa-2x"></i>
+				</div>
+				<div id="result">
+					<p id="result-display" style="font-size: 400%;"></p>
+						<div id="right_post" style="display: none;">
+							<button class="btn btn-primary" id="postfacebtn" onclick="postfacebook()" style="background-color: #428bca;"><span id="postface_txt"><i class="fa fa-paper-plane-o"></i> โพสบนเฟสบุ๊ค</span></button>
+						</div>
+						<div id="right_postload" style="display: none;">
+							<button class="btn btn-warning"><i class="fa fa-refresh fa-spin"></i> กำลังโพส</button>
+						</div>
+						<div id="right_ok" style="display: none;">
+							<button class="btn btn-success" style="background-color: #5cb85c;"><i class="fa fa-check"></i> โพสเรียบร้อย</button>
+						</div>
+				</div>
+			</center>
+	</div>
+</div>
