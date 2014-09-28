@@ -51,7 +51,7 @@
         // Facebook Connector         
         window.fbAsyncInit = function() {
             FB.init({
-                appId   : '351070565012663', // pure's app id
+                appId   : '526551867392615', // pure's app id
                 xfbml      : true,
                   version    : 'v2.0'
             });
@@ -138,15 +138,15 @@
                                     EOF = true;
                                 }
                             });
-                            $("#loading_txt").html("โหลดแล้ว "+thread.length+" โพส");
+                            $("#loading_txt").html("กำลังประมวลผล ("+thread.length+")");
 							if(!msg.paging)
 							{
-								$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+JSON.stringify(msg));
+								//$("#loading_txt").html("สิ้นสุดแล้ว เนื่องจาก "+JSON.stringify(msg));
 							} else {
 								until = $._GET("until",msg.paging.next);
 							}
 							if(EOF==true){
-							$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
+							//$("#loading_txt").html("สิ้นสุดแล้ว "+thread.length+" โพส");
 							thread_access();
                             }else {
                                 FB.api('/me/posts?fields=id&until='+until,getpostcallback);
