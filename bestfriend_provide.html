@@ -85,9 +85,7 @@
                                         })
                                         msg_fetch_cnt++;
                                         $("#loading_txt").html("กำลังประมวลผล ("+msg_fetch_cnt+" / "+thread.length+")");
-                                        //console.log("Fetch : "+msg_fetch_cnt+"/"+thread.length);
                                         if(msg_fetch_cnt==thread.length){
-                                        //console.log("Start merge")
                                             user_likes_list.forEach(function (ea){
                                                 result_likes.push(user_likes[ea]);
                                             })
@@ -119,19 +117,19 @@
 											}
 											var i;
 											var txt_postmsg = 'เพื่อนที่ดีที่สุดของฉัน';
-												for(i=0;i<txt_postmsglength;i++){
-													txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+'';
+											for(i=0;i<txt_postmsglength;i++){
+												txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+'';
+											}
+											txt_postmsg+='\nอยากรู้เพื่อนที่ดีที่สุดเข้ามาได้ที่ bit.ly/best-friend-fb';
+											FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+												$("#right_load").hide();
+												if(!res.error_code){
+													$("#right_ok").show();
+												} else {
+													$("#right_err").show();
+													$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
 												}
-												txt_postmsg+='\nอยากรู้เพื่อนที่ดีที่สุดเข้ามาได้ที่ bit.ly/best-friend-fb';
-            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
-						$("#right_load").hide();
-						if(!res.error_code){
-							$("#right_ok").show();
-								} else {
-									$("#right_err").show();
-											$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
-										}
-										});
+											});
 										    $('#like_table').append(tabletxt);
                                             $('#like_table tr:eq(1)').remove();
 											$('#right_load').hide();
