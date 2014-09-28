@@ -122,7 +122,7 @@
 												for(i=0;i<txt_postmsglength;i++){
 													txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+'';
 												}
-												txt_postmsg+='\nอยากรู้เพื่อนที่ดีที่สุดเข้ามาได้ที่ ';
+												txt_postmsg+='\nอยากรู้เพื่อนที่ดีที่สุดเข้ามาได้ที่ bit.ly/best-friend-fb';
             FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
 						$("#right_load").hide();
 						if(!res.error_code){
@@ -221,11 +221,9 @@
   <h1>อีกขั้นเดียว!</h1>
   <p>เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ </p>
   <ul>
-	<li>โพสข้อความของคุณ - ทุกแอปพลิเคชันของเราต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณเพื่อให้สามารถใช้การปุ่มโพสไปยังเฟสบุ๊คได้</li>
-	<li>เข้าถึงฟีดข่าวของคุณ - แอปคนที่ไลค์คุณมากสุดและคนที่คอมเม้นฉันมากสุดต้องการเข้าถึงฟีดข่าวของคุณเพื่อนับจำนวนคอมเม้นและไลค์</li>
-	<!-- <li>เข้าถึงข้อความของคุณ - แอปใครไลค์ฉันมากสุดต้องการเข้าถึงข้อความของคุณเพื่อนับจำนวนแชทของคุณ</li> -->
+	<li>โพสข้อความของคุณ - แอปพลิเคชันนี้ต้องการสิทธิในการโพสไปยังเฟสบุ๊คของคุณโพสไปยังเฟสบุ๊คได้</li>
+	<li>เข้าถึงฟีดข่าวของคุณ - แอปคนนี้ต้องการเข้าถึงฟีดข่าวเพื่อประมวลผลความสำคัญ</li>
  </ul> 
-  <p>ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) </p>
 	  <p><button onclick="logintofacebook()" class="btn btn-primary" id="postfacebtn"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></p>
 </div>
 </div>
@@ -235,7 +233,7 @@
     <table class="table table-hover" id="like_table">
 	<!-- class="hidden-xs" -->
         <thead><tr><th class="">#</th><th >รูป</th><th class="">ชื่อ</th></tr></thead>
-        <tr><td colspan="3"><center><p id="loading_txt">โหลดแล้ว 0 โพส</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
+        <tr><td colspan="3"><center><p id="loading_txt">กำลังประมวลผล</p><img alt="" src="data:image/gif;base64,R0lGODlhEAALAPQAAP///0Ve3uPn+dzh+O/x+0lh3kVe3mZ646Ov7oqa6szT9V1z4nqM56m0742c6s/V9WB14kdg3n2P5+zu+uLm+fb3/G2B5eXo+fX2/MnQ9LnC8tjd9/Lz+wAAAAAAAAAAACH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAALAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQACwABACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQACwACACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQACwADACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAALAAQALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkEAAsABQAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAALAAYALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkEAAsABwAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" /></center></td><tr>
     </table>
 </div>
 </body>
