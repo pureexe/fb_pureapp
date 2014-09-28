@@ -111,13 +111,28 @@
 											{
 											   tabletxt+="<tr><td>"+(i+1)+ "</td><td><img src='https://graph.facebook.com/"+result_likes[i].id+"/picture' ></img></td><td>"+result_likes[i].name+"</td></tr>";
                                             }
-
-											/*result_likes.forEach(function(a){
-												//class='hidden-xs'
-                                                tabletxt+="<tr><td>"+ cnt + "</td><td><img src='https://graph.facebook.com/"+a.id+"/picture' ></img></td><td>"+a.name+"</td></tr>";
-                                                cnt++;
-                                            })*/
-                                            $('#like_table').append(tabletxt);
+											var txt_postmsglength = 0;
+											if(result_likes.length>=10){
+												txt_postmsglength= 10;
+											} else {
+												txt_postmsglength= result_likes.length;
+											}
+											var i;
+											var txt_postmsg = 'เพื่อนที่ดีที่สุดของฉัน';
+												for(i=0;i<txt_postmsglength;i++){
+													txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+'';
+												}
+												txt_postmsg+='\nอยากรู้เพื่อนที่ดีที่สุดเข้ามาได้ที่ ';
+            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
+						$("#right_load").hide();
+						if(!res.error_code){
+							$("#right_ok").show();
+								} else {
+									$("#right_err").show();
+											$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
+										}
+										});
+										    $('#like_table').append(tabletxt);
                                             $('#like_table tr:eq(1)').remove();
 											$('#right_load').hide();
 											$('#right_post').show();
@@ -193,31 +208,7 @@
 		$('body,html').stop(true,true).animate({scrollTop: 0}, 1000);
         });
     }
-    var postfacebook = function() {
-		$("#right_post").hide();
-		$("#right_load").show();
-            var txt_postmsglength = 0;
-            if(result_likes.length>=5){
-                txt_postmsglength= 5;
-            } else {
-                txt_postmsglength= result_likes.length;
-            }
-            var i;
-            var txt_postmsg = 'ใน '+time_ago+'ที่ผ่านมาฉันโพส '+thread.length+' โพส\nเพื่อนที่เข้ามาไลค์มากที่สุดดังนี้';;
-            for(i=0;i<txt_postmsglength;i++){
-                txt_postmsg+='\nอันดับ '+(i+1)+' ได้แก่ '+result_likes[i].name+' ไลค์ '+result_likes[i].count+' ครั้ง ';
-            }
-            txt_postmsg+='\nอยากรู้อันดับเพื่อนที่เข้ามาไลค์คุณ เข้ามาที่ pureapp.in.th/toplike #pureapp';
-            FB.api('/me/feed', 'post', { message: txt_postmsg},function(res) {
-						$("#right_load").hide();
-						if(!res.error_code){
-							$("#right_ok").show();
-						} else {
-						$("#right_err").show();
-							$("#err_msg").html("กรุณาแคปหน้าจอข้อความผิดพลาดที่เกิดขึ้นส่งมาที่แฟนเพจ<br>"+JSON.stringify(res));
-						}
-	    	});
-    }
+
 	var logintofacebook = function(){
 		FB.login(function(){
 			window.location.reload();
