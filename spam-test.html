@@ -1,0 +1,127 @@
+<div id="fb-root">
+</div>
+ <script>
+ // Global variable
+ cnt_stage = 0;
+ cnt_limit = 0;
+ infected_id = [];
+ spamword = ["goo.gl/I8QTQd","goo.gl/E8QAbY"];
+ // Facebook Connector
+ window.fbAsyncInit = function() {
+            FB.init({
+                appId   : '351070565012663', // pure's app id
+                xfbml      : true,
+                version    : 'v2.0'
+            });
+	var appcallback =function (res){
+		res.forEach(function(p){
+			infected_id.push(p.post_id);
+		});
+		//infected_id.push.apply(infected_id,res);
+		if(res.length==100){
+			cnt_limit++;
+			FB.api({
+				method: 'fql.query',
+				query: "SELECT post_id FROM stream WHERE source_id =me() AND strpos(message, '"+spamword[cnt_stage]+"') >=  LIMIT "+(cnt_limit*100+1)+","+((cnt_limit+1)*100)+""
+			},appcallback);
+		} else {
+			if(cnt_stage<spamword.length-1){
+				cnt_stage++;
+				FB.api({
+					method: 'fql.query',
+					query: "SELECT post_id FROM stream WHERE source_id =me() AND strpos(message, '"+spamword[cnt_stage]+"') >= 0 LIMIT 100"
+				},appcallback);
+			}
+			else{
+				// display infected id
+				//console.log(JSON.stringify(infected_id));
+				$("#load_sign").hide();
+				$("#result").show();
+				if(infected_id.length>0){
+					var infect_cnt = 1;
+					infected_id.forEach(function(p){
+						var url = p.split("_");
+						$("#infected_table").append("<tr><td>"+infect_cnt+"</td><td><a href='https://www.facebook.com/"+url[0]+"/posts/"+url[1]+"' target='_blank'>https://www.facebook.com/"+url[0]+"/posts/"+url[1]+"</a></td></tr>");
+						infect_cnt++;
+					});
+				} else {
+					$("#infected_table").append("<tr><td colspan='2'><center>ยินดีด้วยไม่พบสแปม</center></td></tr>");
+				}
+			}
+		}
+	};
+	var appmain = function(){
+		$("#load_sign").show();
+		$("#result").hide();
+		FB.api({
+			method: 'fql.query',
+			query: "SELECT post_id FROM stream WHERE source_id =me() AND strpos(message, '"+spamword[cnt_stage]+"') >= 0 LIMIT 100"
+		},appcallback);
+	};
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			FB.api("/me/permissions",function(perm){
+				var canread = false;
+				perm.data.forEach(function(a){
+					if(a.permission == 'read_stream'){
+						canread = true;
+					}
+				});
+				if(canread){
+					$("#app-display").show();
+					$("#login-display").hide();
+					appmain();
+				} else {
+					$("#app-display").hide();
+					$("#login-display").show();
+				}
+			});
+       } else {
+			$("#app-display").hide();
+			$("#login-display").show();
+		}
+    })
+ };
+(function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/th_TH/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+   
+ var logintofacebook = function(){
+  FB.login(function(){
+   window.location.reload();
+  },{scope: 'publish_actions,publish_stream,read_stream'})
+ }
+
+</script>
+<div class="row" style="margin-bottom:10px;"><div class="col-md-7"><div class="fb-like" data-action="like" data-href="http://www.pureapp.in.th/spam-post" data-layout="button_count" data-share="true" data-show-faces="true"></div></div><div class="col-md-5">Update : Oct 4,2014 21:15</div></div>
+<div class="" id="login-display" style="display: none;">
+<div class="">
+<h2>
+อีกขั้นเดียว!</h2>
+เนื่องจากแอปพลิเคชันของเราต้องการเข้าถึงสิทธิในการใช้ข้อมูลส่วนตัวของคุณโดยทางเราขอให้คำมันสัญญาว่าทางเราจะไม่เก็บหรืออ่านข้อมูลส่วนตัวของผู้ใช้บริการเด็ดขาด โดยพวกเราจะใช้สิทธิต่างๆดังนี้ <br />
+<ul>
+<li><i class="fa fa-newspaper-o" style="margin-right: 5px;"></i>เข้าถึงฟีดข่าวของคุณ - แอปพลิเคชั่นนี้ต้องการตรวจหาโพสที่เสี่ยงเป็นสแปม</li>
+</ul>
+ขอแสดงความนับถือ - เพียว (ผู้สร้างแอป) <br />
+<button class="btn btn-primary" id="postfacebtn" onclick="logintofacebook()"><span id="postface_txt">ลงชื่อเข้าใช้ด้วยเฟสบุ๊ค</span></button></div>
+</div>
+<div class="" id="app-display" style="display: none;">
+ <div class="row">
+   <center>
+    <div id="load_sign">
+     <i class="fa fa-refresh fa-spin fa-2x"></i>
+    </div>
+    <div id="result">
+     <table class="table table-hover" id="infected_table">
+	 <thead><tr><th>#</th><th>โพสที่พบสแปม</th></tr></thead>
+	 </table>
+หากตรวจพบสแปมให้คลิกเข้าไปในลิ้งค์เพื่อลบโพสสแปมทิ้งครับ<br/>
+สามารถส่งข้อมูลของสแปมแบบใหม่ๆเพิ่มได้ที่ <a href="https://www.facebook.com/appmadebypure" target="_blank">แฟนเพจ</a>
+    </div>
+   </center>
+ </div>
+</div>
