@@ -25,7 +25,7 @@
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
-      var loginfacebook = function(){
+      function loginfacebook(){
         FB.login(function(){
           	window.location.reload();
         },{scope: ''})
