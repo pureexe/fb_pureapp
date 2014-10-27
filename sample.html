@@ -14,7 +14,7 @@
             });
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
-                	document.getElementById("display").innerHTML("Hello => "+response.authResponse.userID);
+                	document.getElementById("display").innerHTML = "Hello -> "+response.authResponse.userID;
                 }
             })
         };
