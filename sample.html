@@ -1,0 +1,38 @@
+<!-- MIT License @2014 - Pakkapon Phongthawee -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+</head>
+<body>
+ <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '351070565012663',
+          xfbml      : true,
+          version    : 'v2.1'
+        });
+        FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+            document.getElementById("display").innerHTML="login";
+          }
+        }
+
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+      var loginfacebook = function(){
+        FB.login(function(){
+          	window.location.reload();
+        },{scope: ''})
+      }
+      
+ </script>
+ <button onclick="loginfacebook">Click me to login</button>
+ <span id="display">Not login</span>
+</body>
+</html>
