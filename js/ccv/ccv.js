@@ -78,7 +78,7 @@ function get_named_arguments(params, names) {
 
 
 
-onmessage = function (event) {
+var onmessage = function (event) {
 	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
 	var scope = { "shared" : data.shared };
 	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
