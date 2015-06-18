@@ -62,3 +62,29 @@ if (parallable === undefined) {
 	};
 	parallable.core = {};
 }
+
+function get_named_arguments(params, names) {
+	if (params.length > 1) {
+		var new_params = {};
+		for (var i = 0; i < names.length; i++)
+			new_params[names[i]] = params[i];
+		return new_params;
+	} else if (params.length == 1) {
+		return params[0];
+	} else {
+		return {};
+	}
+}
+
+
+
+onmessage = function (event) {
+	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
+	var scope = { "shared" : data.shared };
+	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
+	try {
+		postMessage(result);
+	} catch (e) {
+		postMessage(JSON.stringify(result));
+	}
+}
