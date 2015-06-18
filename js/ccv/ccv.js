@@ -20,44 +20,7 @@ if (parallable === undefined) {
 			}
 			var scope = { "shared" : {} };
 			var ctrl = funct.apply(scope, params);
-			if (async) {
-				return function (complete, error) {
-					var executed = 0;
-					var outputs = new Array(worker_num);
-					var inputs = ctrl.pre.apply(scope, [worker_num]);
-					/* sanitize scope shared because for Chrome/WebKit, worker only support JSONable data */
-					for (i in scope.shared)
-						/* delete function, if any */
-						if (typeof scope.shared[i] == "function")
-							delete scope.shared[i];
-						/* delete DOM object, if any */
-						else if (scope.shared[i].tagName !== undefined)
-							delete scope.shared[i];
-					for (i = 0; i < worker_num; i++) {
-						var worker = new Worker(file);
-						worker.onmessage = (function (i) {
-							return function (event) {
-								outputs[i] = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
-								executed++;
-								if (executed == worker_num)
-									complete(ctrl.post.apply(scope, [outputs]));
-							}
-						})(i);
-						var msg = { "input" : inputs[i],
-									"name" : funct.toString(),
-									"shared" : scope.shared,
-									"id" : i,
-									"worker" : params.worker_num };
-						try {
-							worker.postMessage(msg);
-						} catch (e) {
-							worker.postMessage(JSON.stringify(msg));
-						}
-					}
-				}
-			} else {
-				return ctrl.post.apply(scope, [[ctrl.core.apply(scope, [ctrl.pre.apply(scope, [1])[0], 0, 1])]]);
-			}
+			
 		}
 	};
 	parallable.core = {};
