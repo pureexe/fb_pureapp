@@ -163,7 +163,7 @@ var ccv = {
   getScale_upto : function(canvas,cascade,interval){
 	var scale = Math.pow(2, 1 / (interval + 1));
 	return Math.floor(Math.log(Math.min(canvas.width / cascade.width, canvas.height / cascade.height)) / Math.log(scale));
-  }
+  },
   detect_objects : function (preret,scale_upto, interval, min_neighbors) {
       var params = get_named_arguments(arguments, ["preret","scale_upto", "interval", "min_neighbors"]);
 	  params.preret = preret;
