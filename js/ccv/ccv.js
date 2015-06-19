@@ -1,3 +1,5 @@
+var blob = new Blob(["var onmessage = function (event) { var data = (typeof event.data == \"string\") ? JSON.parse(event.data) : event.data; var scope = { \"shared\" : data.shared };var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);try {postMessage(result);} catch (e) {postMessage(JSON.stringify(result));}}"]);
+var blobURL = window.URL.createObjectURL(blob);
 if (parallable === undefined) {
 	var parallable = function (file, funct) {
 		parallable.core[funct.toString()] = funct().core;
@@ -170,7 +172,7 @@ var ccv = {
 		return {"index" : idx, "cat" : class_idx};
 	},
 
-	detect_objects : parallable("http://fb.pureapp.in.th/js/ccv/ccv.js", function (canvas, cascade, interval, min_neighbors) {
+	detect_objects : parallable(blobURL function (canvas, cascade, interval, min_neighbors) {
 		if (this.shared !== undefined) {
 			var params = get_named_arguments(arguments, ["canvas", "cascade", "interval", "min_neighbors"]);
 			this.shared.canvas = params.canvas;
@@ -448,7 +450,9 @@ var ccv = {
 	})
 }
 
-var onmessage = function (event) {
+
+
+/*var onmessage = function (event) {
 	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
 	var scope = { "shared" : data.shared };
 	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
@@ -457,4 +461,4 @@ var onmessage = function (event) {
 	} catch (e) {
 		postMessage(JSON.stringify(result));
 	}
-}
+}*/
