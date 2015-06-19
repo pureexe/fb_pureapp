@@ -172,7 +172,7 @@ var ccv = {
 		return {"index" : idx, "cat" : class_idx};
 	},
 
-	detect_objects : parallable(blobURL, function (canvas, cascade, interval, min_neighbors) {
+	detect_objects : parallable("", function (canvas, cascade, interval, min_neighbors) {
 		if (this.shared !== undefined) {
 			var params = get_named_arguments(arguments, ["canvas", "cascade", "interval", "min_neighbors"]);
 			this.shared.canvas = params.canvas;
