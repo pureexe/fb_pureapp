@@ -1,5 +1,10 @@
-var ccvBlob = new Blob(["if(void 0===parallable){var parallable=function(e,a){return parallable.core[a.toString()]=a().core,function(){var r,t,n,s;if(arguments.length>1)for(t=arguments[arguments.length-2],n=arguments[arguments.length-1],s=new Array(arguments.length-2),r=0;r<arguments.length-2;r++)s[r]=arguments[r];else t=arguments[0].async,n=arguments[0].worker,s=arguments[0],delete s.async,delete s.worker,s=[s];var o={shared:{}},p=a.apply(o,s);return t?function(t){var l=0,g=new Array(n),d=p.pre.apply(o,[n]);for(r in o.shared)\"function\"==typeof o.shared[r]?delete o.shared[r]:void 0!==o.shared[r].tagName&&delete o.shared[r];for(r=0;n>r;r++){var i=new Worker(e);i.onmessage=function(e){return function(a){g[e]=\"string\"==typeof a.data?JSON.parse(a.data):a.data,l++,l==n&&t(p.post.apply(o,[g]))}}(r);var u={input:d[r],name:a.toString(),shared:o.shared,id:r,worker:s.worker_num};try{i.postMessage(u)}catch(c){i.postMessage(JSON.stringify(u))}}}:p.post.apply(o,[[p.core.apply(o,[p.pre.apply(o,[1])[0],0,1])]])}};parallable.core={}}onmessage=function(e){var a=\"string\"==typeof e.data?JSON.parse(e.data):e.data,r={shared:a.shared},t=parallable.core[a.name].apply(r,[a.input,a.id,a.worker]);try{postMessage(t)}catch(n){postMessage(JSON.stringify(t))}};"],{type : 'text/javascript'});
-var ccvBlobURL = window.URL.createObjectURL(ccvBlob);
+var ccvBlobURL = "";
+$(function() {
+	$.get("http://fb.pureapp.in.th",response){
+		var ccvBlob = new Blob([response],{type : 'text/javascript'});
+		ccvBlobURL = window.URL.createObjectURL(ccvBlob);
+	}
+});
 if (parallable === undefined) {
 	var parallable = function (file, funct) {
 		parallable.core[funct.toString()] = funct().core;
@@ -64,18 +69,6 @@ if (parallable === undefined) {
 	};
 	parallable.core = {};
 }
-
-/*
-var onmessage = function (event) {
-	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
-	var scope = { "shared" : data.shared };
-	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
-	try {
-		postMessage(result);
-	} catch (e) {
-		postMessage(JSON.stringify(result));
-	}
-}*/
 
 function get_named_arguments(params, names) {
 	if (params.length > 1) {
@@ -460,4 +453,15 @@ var ccv = {
 		};
 		return { "pre" : pre, "core" : core, "post" : post };
 	})
+}
+
+var onmessage = function (event) {
+	var data = (typeof event.data == "string") ? JSON.parse(event.data) : event.data;
+	var scope = { "shared" : data.shared };
+	var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);
+	try {
+		postMessage(result);
+	} catch (e) {
+		postMessage(JSON.stringify(result));
+	}
 }
