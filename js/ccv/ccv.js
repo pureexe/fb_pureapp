@@ -1,6 +1,5 @@
-//var blob = new Blob(["onmessage = function (event) { var data = (typeof event.data == \"string\") ? JSON.parse(event.data) : event.data; var scope = { \"shared\" : data.shared };var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);try {postMessage(result);} catch (e) {postMessage(JSON.stringify(result));}}"],{type : 'text/javascript'});
-//var blobURL = window.URL.createObjectURL(blob);
-var blobURL = "";
+var ccvCallbackBlob = new Blob(["onmessage = function (event) { var data = (typeof event.data == \"string\") ? JSON.parse(event.data) : event.data; var scope = { \"shared\" : data.shared };var result = parallable.core[data.name].apply(scope, [data.input, data.id, data.worker]);try {postMessage(result);} catch (e) {postMessage(JSON.stringify(result));}}"],{type : 'text/javascript'});
+var ccvCallbackURL = window.URL.createObjectURL(ccvCallbackBlob);
 if (parallable === undefined) {
 	var parallable = function (file, funct) {
 		parallable.core[funct.toString()] = funct().core;
@@ -173,7 +172,7 @@ var ccv = {
 		return {"index" : idx, "cat" : class_idx};
 	},
 
-	detect_objects : parallable(blobURL, function (canvas, cascade, interval, min_neighbors) {
+	detect_objects : parallable(ccvCallbackURL, function (canvas, cascade, interval, min_neighbors) {
 		if (this.shared !== undefined) {
 			var params = get_named_arguments(arguments, ["canvas", "cascade", "interval", "min_neighbors"]);
 			this.shared.canvas = params.canvas;
