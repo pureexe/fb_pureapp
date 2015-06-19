@@ -164,9 +164,9 @@ var ccv = {
 	var scale = Math.pow(2, 1 / (interval + 1));
 	return Math.floor(Math.log(Math.min(canvas.width / cascade.width, canvas.height / cascade.height)) / Math.log(scale));
   }
-  detect_objects : function (pre,scale_upto, interval, min_neighbors) {
-      var params = get_named_arguments(arguments, ["pre","scale_upto", "interval", "min_neighbors"]);
-	  params.pre = pre;
+  detect_objects : function (preret,scale_upto, interval, min_neighbors) {
+      var params = get_named_arguments(arguments, ["preret","scale_upto", "interval", "min_neighbors"]);
+	  params.preret = preret;
       params.cascade = cascade;
       params.scale = Math.pow(2, 1 / (params.interval + 1));
       params.next = params.interval + 1;
@@ -385,7 +385,7 @@ var ccv = {
     };
     
     return post([
-      core(params.pre,0,0)
+      core(params.preret,0,0)
     ]);
   }
 }
