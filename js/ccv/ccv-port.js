@@ -98,29 +98,11 @@ var ccv = {
     }
     return {"index" : idx, "cat" : class_idx};
   },
-
-  detect_objects : function (canvas, interval, min_neighbors) {
-      var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors"]);
-      params.canvas = ccv.grayscale(params.canvas);
-      params.cascade = cascade;
-      params.scale = Math.pow(2, 1 / (params.interval + 1));
-      params.next = params.interval + 1;
-      params.scale_upto = Math.floor(Math.log(Math.min(params.canvas.width / params.cascade.width, params.canvas.height / params.cascade.height)) / Math.log(params.scale));
-      var i;
-      for (i = 0; i < params.cascade.stage_classifier.length; i++)
-      {
-        params.cascade.stage_classifier[i].orig_feature = params.cascade.stage_classifier[i].feature;
-      }
-      
-    
-    function pre() {
-      
-      var canvas = params.canvas;
-      var interval = params.interval;
-      var scale = params.scale;
-      var next = params.next;
-      var scale_upto = params.scale_upto;
-      var pyr_length = (scale_upto + next * 2) * 4;
+  function pre(canvas,cascade,interval) {
+	  var scale = Math.pow(2, 1 / (interval + 1));
+      var next = interval + 1;
+      var scale_upto = Math.floor(Math.log(Math.min(canvas.width / cascade.width,canvas.height / cascade.height)) / Math.log(scale));
+	  var pyr_length = (scale_upto + next * 2) * 4;
       var pyr, ret;
       if (pyr_length > 0) {
         pyr = new Array(pyr_length);
@@ -177,7 +159,23 @@ var ccv = {
                    "data" : pyr[i * 4 + 3].getContext("2d").getImageData(0, 0, pyr[i * 4 + 3].width, pyr[i * 4 + 3].height).data };
       }
       return ret;
-    };
+  },
+  getScale_upto : function(canvas,cascade,interval){
+	var scale = Math.pow(2, 1 / (interval + 1));
+	return Math.floor(Math.log(Math.min(canvas.width / cascade.width, canvas.height / cascade.height)) / Math.log(scale));
+  }
+  detect_objects : function (pre,scale_upto, interval, min_neighbors) {
+      var params = get_named_arguments(arguments, ["pre","scale_upto", "interval", "min_neighbors"]);
+	  params.pre = pre;
+      params.cascade = cascade;
+      params.scale = Math.pow(2, 1 / (params.interval + 1));
+      params.next = params.interval + 1;
+      params.scale_upto = scale_upto;
+      var i;
+      for (i = 0; i < params.cascade.stage_classifier.length; i++)
+      {
+        params.cascade.stage_classifier[i].orig_feature = params.cascade.stage_classifier[i].feature;
+      }
 
     function core(pyr, id) {
       var cascade = params.cascade;
@@ -387,8 +385,7 @@ var ccv = {
     };
     
     return post([
-      core(
-        pre(1),0,0)
+      core(params.pre,0,0)
     ]);
   }
 }
