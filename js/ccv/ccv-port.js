@@ -98,7 +98,7 @@ var ccv = {
     }
     return {"index" : idx, "cat" : class_idx};
   },
-  function pre(canvas,cascade,interval) {
+  pre : function(canvas,cascade,interval) {
 	  var scale = Math.pow(2, 1 / (interval + 1));
       var next = interval + 1;
       var scale_upto = Math.floor(Math.log(Math.min(canvas.width / cascade.width,canvas.height / cascade.height)) / Math.log(scale));
