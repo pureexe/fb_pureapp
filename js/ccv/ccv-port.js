@@ -392,7 +392,7 @@ var ccv = {
 	var coreBlobURL = URL.createObjectURL(coreBlob);
 	var myWorker = new Worker(coreBlobURL);
 	myWorker.onmessage = function(e) {
-		params.callback(post(e.data));
+		params.callback(post([e.data]));
 	}
 	myWorker.postMessage([pre(),params.cascade,params.interval,params.scale,params.next,params.scale_upto]);
     /*return post([
