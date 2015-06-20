@@ -394,7 +394,7 @@ var ccv = {
 	myWorker.onmessage = function(e) {
 		callback(post(e.data));
 	}
-	myWorker.postMessage([pre(),params.cansdes,params.interval,params.scale,params.next,params.scale_upto]);
+	myWorker.postMessage([pre(),params.cascade,params.interval,params.scale,params.next,params.scale_upto]);
     /*return post([
 		core(pre())
 	]);*/
