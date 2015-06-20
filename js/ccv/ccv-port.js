@@ -112,7 +112,6 @@ var ccv = {
       
     
     function pre() {
-      
       var canvas = params.canvas;
       var interval = params.interval;
       var scale = params.scale;
