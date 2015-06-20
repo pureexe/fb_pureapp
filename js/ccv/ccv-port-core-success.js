@@ -12,7 +12,6 @@ function get_named_arguments(params, names) {
 }
 
 var ccv = {
-
   grayscale : function (canvas) {
     var ctx = canvas.getContext("2d");
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -98,11 +97,27 @@ var ccv = {
     }
     return {"index" : idx, "cat" : class_idx};
   },
-  initPyr : function pre(canvas,cascade,interval) {
-      canvas = ccv.grayscale(canvas); 
-      var scale = Math.pow(2, 1 / (interval + 1));
-      var next = interval + 1;
-      var scale_upto = Math.floor(Math.log(Math.min(canvas.width / cascade.width, canvas.height / cascade.height)) / Math.log(scale));
+
+  detect_objects : function (canvas, interval, min_neighbors,callback) {
+      var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors","callback"]);
+      params.canvas = ccv.grayscale(params.canvas);
+      params.scale = Math.pow(2, 1 / (params.interval + 1));
+      params.next = params.interval + 1;
+      params.scale_upto = Math.floor(Math.log(Math.min(params.canvas.width / params.cascade.width, params.canvas.height / params.cascade.height)) / Math.log(params.scale));
+      var i;
+      for (i = 0; i < params.cascade.stage_classifier.length; i++)
+      {
+        params.cascade.stage_classifier[i].orig_feature = params.cascade.stage_classifier[i].feature;
+      }
+      
+    
+    function pre() {
+      
+      var canvas = params.canvas;
+      var interval = params.interval;
+      var scale = params.scale;
+      var next = params.next;
+      var scale_upto = params.scale_upto;
       var pyr_length = (scale_upto + next * 2) * 4;
       var pyr, ret;
       if (pyr_length > 0) {
@@ -160,22 +175,9 @@ var ccv = {
                    "data" : pyr[i * 4 + 3].getContext("2d").getImageData(0, 0, pyr[i * 4 + 3].width, pyr[i * 4 + 3].height).data };
       }
       return ret;
-  },
-  detect_objects : function (pre,canvas,interval, min_neighbors) {
-	  console.log(arguments);
-      var params = {};
-	  params.pre = pre;
-      params.canvas = canvas;
-      params.cascade = cascade;
-      params.scale = Math.pow(2, 1 / (params.interval + 1));
-      params.next = params.interval + 1;
-      params.scale_upto = Math.floor(Math.log(Math.min(params.canvas.width / params.cascade.width, params.canvas.height / params.cascade.height)) / Math.log(params.scale));
-      var i;
-      for (i = 0; i < params.cascade.stage_classifier.length; i++)
-      {
-        params.cascade.stage_classifier[i].orig_feature = params.cascade.stage_classifier[i].feature;
-      }
-    function core(pyr, id) {
+    };
+
+    function core(pyr) {
       var cascade = params.cascade;
       var interval = params.interval;
       var scale = params.scale;
@@ -381,9 +383,13 @@ var ccv = {
         return result_seq;
       }
     };
-    console.log("INSIDE : "+params.pre);
-    return post([
-      core(params.pre,0,0)
-    ]);
+    var coreBlob = new Blob(["onmessage=function(a){function e(a,e,i,r,t,s){var f,n,h,z,o,d,g=1,p=1,c=[0,1,0,1],l=[0,0,1,1],w=[];for(f=0;s>f;f++){var x=a[4*f+8*t].width-Math.floor(e.width\/4),_=a[4*f+8*t].height-Math.floor(e.height\/4),u=[4*a[4*f].width,4*a[4*f+4*t].width,4*a[4*f+8*t].width],v=[16*a[4*f].width-16*x,8*a[4*f+4*t].width-8*x,4*a[4*f+8*t].width-4*x];for(n=0;n<e.stage_classifier.length;n++){var y=e.stage_classifier[n].orig_feature,A=e.stage_classifier[n].feature=new Array(e.stage_classifier[n].count);for(h=0;h<e.stage_classifier[n].count;h++)for(A[h]={size:y[h].size,px:new Array(y[h].size),pz:new Array(y[h].size),nx:new Array(y[h].size),nz:new Array(y[h].size)},d=0;d<y[h].size;d++)A[h].px[d]=4*y[h].px[d]+y[h].py[d]*u[y[h].pz[d]],A[h].pz[d]=y[h].pz[d],A[h].nx[d]=4*y[h].nx[d]+y[h].ny[d]*u[y[h].nz[d]],A[h].nz[d]=y[h].nz[d]}for(d=0;4>d;d++){var b=[a[4*f].data,a[4*f+4*t].data,a[4*f+8*t+d].data],k=[8*c[d]+l[d]*a[4*f].width*8,4*c[d]+l[d]*a[4*f+4*t].width*4,0];for(o=0;_>o;o++){for(z=0;x>z;z++){var M=0,m=!0;for(n=0;n<e.stage_classifier.length;n++){M=0;var j=e.stage_classifier[n].alpha,A=e.stage_classifier[n].feature;for(h=0;h<e.stage_classifier[n].count;h++){var q,B,C=A[h],D=b[C.pz[0]][k[C.pz[0]]+C.px[0]],E=b[C.nz[0]][k[C.nz[0]]+C.nx[0]];if(E>=D)M+=j[2*h];else{var F,G=!0;for(F=0;F<C.size;F++){if(C.pz[F]>=0&&(q=b[C.pz[F]][k[C.pz[F]]+C.px[F]],D>q)){if(E>=q){G=!1;break}D=q}if(C.nz[F]>=0&&(B=b[C.nz[F]][k[C.nz[F]]+C.nx[F]],B>E)){if(B>=D){G=!1;break}E=B}}M+=G?j[2*h+1]:j[2*h]}}if(M<e.stage_classifier[n].threshold){m=!1;break}}m&&w.push({x:(4*z+2*c[d])*g,y:(4*o+2*l[d])*p,width:e.width*g,height:e.height*p,neighbor:1,confidence:M}),k[0]+=16,k[1]+=8,k[2]+=4}k[0]+=v[0],k[1]+=v[1],k[2]+=v[2]}}g*=r,p*=r}return w}postMessage(e(a.data[0],a.data[1],a.data[2],a.data[3],a.data[4],a.data[5]))};"]);
+	var coreBlobURL = URL.createObjectURL(coreBlob);
+	var myWorker = new Worker(coreBlobURL);
+	myWorker.onmessage = function(e) {
+		params.callback(post([e.data]));
+	}
+	myWorker.postMessage([pre(),params.cascade,params.interval,params.scale,params.next,params.scale_upto]);
+	return;
   }
 }

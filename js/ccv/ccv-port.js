@@ -12,7 +12,6 @@ function get_named_arguments(params, names) {
 }
 
 var ccv = {
-
   grayscale : function (canvas) {
     var ctx = canvas.getContext("2d");
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -134,13 +133,7 @@ var ccv = {
              "data" : pyr[0].getContext("2d").getImageData(0, 0, pyr[0].width, pyr[0].height).data };
       var i;
       for (i = 1; i <= interval; i++) {
-        pyr[i * 4] = document.createElement("canvas");
-		pyr[i * 4].width = Math.floor(pyr[0].width / Math.pow(scale, i));
-		pyr[i * 4].height = Math.floor(pyr[0].height / Math.pow(scale, i));
-        pyr[i * 4].getContext("2d").drawImage(pyr[0], 0, 0, pyr[0].width, pyr[0].height, 0, 0, pyr[i * 4].width, pyr[i * 4].height);
-        ret[i * 4] = { "width" : pyr[i * 4].width,
-                 "height" : pyr[i * 4].height,
-                 "data" : pyr[i * 4].getContext("2d").getImageData(0, 0, pyr[i * 4].width, pyr[i * 4].height).data };
+		ret[i*4] = _.clone(ret[0]);
       }
       for (i = next; i < scale_upto + next * 2; i++) {
         pyr[i * 4] = document.createElement("canvas");
