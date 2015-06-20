@@ -179,7 +179,7 @@ var ccv = {
       return ret;
     };
 
-    function core(pyr, id) {
+    function core(pyr) {
       var cascade = params.cascade;
       var interval = params.interval;
       var scale = params.scale;
@@ -387,8 +387,7 @@ var ccv = {
     };
     
     return post([
-      core(
-        pre(),0,0)
-    ]);
+		core(pre())]
+	);
   }
 }
