@@ -161,9 +161,9 @@ var ccv = {
       }
       return ret;
   },
-  detect_objects : function (canvas, interval, min_neighbors,pre) {
+  detect_objects : function (pre,canvas,interval, min_neighbors) {
 	  console.log(arguments);
-      var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors","pre"]);
+      var params = {};
 	  params.pre = pre;
       params.canvas = canvas;
       params.cascade = cascade;
