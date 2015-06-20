@@ -102,10 +102,6 @@ var ccv = {
   detect_objects : function (canvas, interval, min_neighbors,callback) {
       var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors","callback"]);
       params.canvas = ccv.grayscale(params.canvas);
-      params.cascade = cascade;
-	  console.log("cascade | "+cascade);
-	  console.log("callback | "+params.callback);
-	  params.cascade = cascade;
       params.scale = Math.pow(2, 1 / (params.interval + 1));
       params.next = params.interval + 1;
       params.scale_upto = Math.floor(Math.log(Math.min(params.canvas.width / params.cascade.width, params.canvas.height / params.cascade.height)) / Math.log(params.scale));
@@ -395,9 +391,6 @@ var ccv = {
 		params.callback(post([e.data]));
 	}
 	myWorker.postMessage([pre(),params.cascade,params.interval,params.scale,params.next,params.scale_upto]);
-    /*return post([
-		core(pre())
-	]);*/
-	return [];
+	return;
   }
 }
