@@ -388,9 +388,16 @@ var ccv = {
         return result_seq;
       }
     };
-    
-    return post([
+    var coreBlob = new Blob(["onmessage=function(a){function e(a,e,s,i,r,t){var c,d,f,n,h,z,o=1,g=1,p=[0,1,0,1],l=[0,0,1,1],w=[];for(c=0;t>c;c++){var x=a[4*c+8*r].width-Math.floor(cascade.width\/4),_=a[4*c+8*r].height-Math.floor(cascade.height\/4),u=[4*a[4*c].width,4*a[4*c+4*r].width,4*a[4*c+8*r].width],v=[16*a[4*c].width-16*x,8*a[4*c+4*r].width-8*x,4*a[4*c+8*r].width-4*x];for(d=0;d<cascade.stage_classifier.length;d++){var y=cascade.stage_classifier[d].orig_feature,A=cascade.stage_classifier[d].feature=new Array(cascade.stage_classifier[d].count);for(f=0;f<cascade.stage_classifier[d].count;f++)for(A[f]={size:y[f].size,px:new Array(y[f].size),pz:new Array(y[f].size),nx:new Array(y[f].size),nz:new Array(y[f].size)},z=0;z<y[f].size;z++)A[f].px[z]=4*y[f].px[z]+y[f].py[z]*u[y[f].pz[z]],A[f].pz[z]=y[f].pz[z],A[f].nx[z]=4*y[f].nx[z]+y[f].ny[z]*u[y[f].nz[z]],A[f].nz[z]=y[f].nz[z]}for(z=0;4>z;z++){var b=[a[4*c].data,a[4*c+4*r].data,a[4*c+8*r+z].data],k=[8*p[z]+l[z]*a[4*c].width*8,4*p[z]+l[z]*a[4*c+4*r].width*4,0];for(h=0;_>h;h++){for(n=0;x>n;n++){var M=0,m=!0;for(d=0;d<cascade.stage_classifier.length;d++){M=0;var j=cascade.stage_classifier[d].alpha,A=cascade.stage_classifier[d].feature;for(f=0;f<cascade.stage_classifier[d].count;f++){var q,B,C=A[f],D=b[C.pz[0]][k[C.pz[0]]+C.px[0]],E=b[C.nz[0]][k[C.nz[0]]+C.nx[0]];if(E>=D)M+=j[2*f];else{var F,G=!0;for(F=0;F<C.size;F++){if(C.pz[F]>=0&&(q=b[C.pz[F]][k[C.pz[F]]+C.px[F]],D>q)){if(E>=q){G=!1;break}D=q}if(C.nz[F]>=0&&(B=b[C.nz[F]][k[C.nz[F]]+C.nx[F]],B>E)){if(B>=D){G=!1;break}E=B}}M+=G?j[2*f+1]:j[2*f]}}if(M<cascade.stage_classifier[d].threshold){m=!1;break}}m&&w.push({x:(4*n+2*p[z])*o,y:(4*h+2*l[z])*g,width:cascade.width*o,height:cascade.height*g,neighbor:1,confidence:M}),k[0]+=16,k[1]+=8,k[2]+=4}k[0]+=v[0],k[1]+=v[1],k[2]+=v[2]}}o*=i,g*=i}return w}postMessage(e(a.data[0],a.data[1],a.data[2],a.data[3],a.data[4],a.data[5]))};"]);
+	var coreBlobURL = URL.createObjectURL(coreBlob);
+	var myWorker = new Worker(coreBlobURL);
+	myWorker.onmessage = function(e) {
+		callback(post(e.data));
+	}
+	myWorker.postMessage([pre(),params.cansdes,params.interval,params.scale,params.next,params.scale_upto]);
+    /*return post([
 		core(pre())
-		]);
+	]);*/
+	return [];
   }
 }
