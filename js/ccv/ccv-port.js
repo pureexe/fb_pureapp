@@ -100,8 +100,6 @@ var ccv = {
   },
   initPyr : function pre(canvas,cascade,interval) {
       canvas = ccv.grayscale(canvas); 
-      var canvas = params.canvas;
-      var interval = params.interval;
       var scale = Math.pow(2, 1 / (interval + 1));
       var next = interval + 1;
       var scale_upto = Math.floor(Math.log(Math.min(canvas.width / cascade.width, canvas.height / cascade.height)) / Math.log(scale));
