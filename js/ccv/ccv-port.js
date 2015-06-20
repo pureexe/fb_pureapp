@@ -162,6 +162,7 @@ var ccv = {
       return ret;
   },
   detect_objects : function (canvas, interval, min_neighbors,pre) {
+	  console.log(arguments);
       var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors","pre"]);
 	  params.pre = pre;
       params.canvas = canvas;
