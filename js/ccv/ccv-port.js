@@ -164,7 +164,7 @@ var ccv = {
   detect_objects : function (canvas, interval, min_neighbors,pre) {
       var params = get_named_arguments(arguments, ["canvas", "interval", "min_neighbors","pre"]);
 	  params.pre = pre;
-      params.canvas = ccv.grayscale(params.canvas);
+      params.canvas = canvas;
       params.cascade = cascade;
       params.scale = Math.pow(2, 1 / (params.interval + 1));
       params.next = params.interval + 1;
